@@ -1,4 +1,4 @@
-@mixin imageWidthAndHeight(){
-      width: 478px;
-      height: 380px;
+@mixin imageWidthAndHeight($width,$height){
+      width: 30rem;
+      height: 23.75rem;
 }

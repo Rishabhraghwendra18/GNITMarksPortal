@@ -1,16 +1,31 @@
-.Toppers{
-      width: $viewWidth;
-      height: $viewHeight;
-      background-color: #F8F8F8;
-      flex: $flex;
-      flex-wrap: wrap;
-      &__image{
-            width: 30%;
-            img{
-                  @include imageWidthAndHeight();
-            }
-      }
-      &__list{
-            width: 70%;
-      }
+.Toppers {
+  width: $viewWidth;
+  height: $viewHeight;
+  background-color: $greyishColor;
+  flex: $flex;
+  flex-wrap: wrap;
+  &__image {
+      padding-left: 8.1rem;
+      box-sizing: border-box;
+    width: 50%;
+    img {
+      @include imageWidthAndHeight(100%, 380px);
+      width: auto;
+    }
+  }
+  &__list {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    .vertical__line{
+          height: 70%;
+          display: inline-block;
+          margin: 0 auto;
+          width: 3px;
+          border-right: 2px solid black;
+
+    }
+  }
+ 
 }
