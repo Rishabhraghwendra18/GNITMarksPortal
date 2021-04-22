@@ -1,0 +1,16 @@
+.Toppers{
+      width: $viewWidth;
+      height: $viewHeight;
+      background-color: #F8F8F8;
+      flex: $flex;
+      flex-wrap: wrap;
+      &__image{
+            width: 30%;
+            img{
+                  @include imageWidthAndHeight();
+            }
+      }
+      &__list{
+            width: 70%;
+      }
+}

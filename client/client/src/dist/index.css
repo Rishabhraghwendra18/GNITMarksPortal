@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+nav img {
+  height: 5.35rem;
+  width: 13rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-left: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: black;
+  margin-right: 3rem;
+}
+
+nav div {
+  margin-left: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.Hero {
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFEB94;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.Hero__quote {
+  margin: 0 10rem;
+  width: 22rem;
+  font-size: 2rem;
+}
+
+.Hero__image {
+  width: 478px;
+  height: 380px;
+}
+
+.Hero__image img {
+  width: 478px;
+  height: 380px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.Toppers {
+  width: 100vw;
+  height: 100vh;
+  background-color: #F8F8F8;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.Toppers__image {
+  width: 30%;
+}
+
+.Toppers__image img {
+  width: 478px;
+  height: 380px;
+}
+
+.Toppers__list {
+  width: 70%;
+}
+
+.flex__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+/*# sourceMappingURL=index.css.map */

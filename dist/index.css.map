@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AAAA,GAAG,GAAG,GAAG,CAAA;EACH,MAAM,EAAE,OAAO;CACpB",
+    "sources": [
+        "../client/client/src/sass/index.scss",
+        "../client/client/src/sass/_navbar.scss"
+    ],
+    "names": [],
+    "file": "index.css"
+}
