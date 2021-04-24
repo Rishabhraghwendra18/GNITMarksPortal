@@ -1,10 +1,11 @@
 @import './reset';
 @import './variable';
 @import './mixins';
+@import './helper';
 @import './navbar';
 @import './hero';
 @import './toppers';
-@import './helper';
+@import './login';
 .App{
       overflow-x: hidden;
 }

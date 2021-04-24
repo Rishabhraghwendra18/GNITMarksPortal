@@ -9,7 +9,7 @@
       box-sizing: border-box;
     width: 50%;
     img {
-      @include imageWidthAndHeight(100%, 380px);
+      @include imageWidthAndHeight();
       width: auto;
     }
   }

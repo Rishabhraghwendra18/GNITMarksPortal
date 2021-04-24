@@ -3,6 +3,22 @@
   padding: 0;
 }
 
+.flex__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -117,20 +133,101 @@ nav div {
   border-right: 2px solid black;
 }
 
-.flex__container {
+.Login {
+  background-color: #FFEB94;
+  width: 100vw;
+  height: 100vh;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  font-family: "Mukta", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.Login__box {
+  width: 40.0625rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 22px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Login__box span {
+  display: block;
+}
+
+.Login__box .horizontal__line {
+  display: block;
+  border: 2px solid #b7b4b4;
+  width: 90%;
+  background-color: #b7b4b4;
+}
+
+.Login__box .username__field,
+.Login__box .password__field {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding-left: 4rem;
+  margin-top: 1rem;
+  font-weight: 400;
+  font-size: 1.875rem;
+}
+
+.Login__box .username__field input,
+.Login__box .password__field input {
+  width: 89%;
+  height: 3%;
+  font-size: 2.25rem;
+  border-radius: 1rem;
+  border: 2px solid grey;
+}
+
+.Login__box .username__field input:focus,
+.Login__box .password__field input:focus {
+  outline: none;
+}
+
+.Login__box .role__field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding-left: 4rem;
+}
+
+.Login__box .role__field > span:first-child {
+  font-weight: 400;
+  font-size: 1.875rem;
+}
+
+.Login__box .role__field span {
+  display: inline;
+}
+
+.Login__box .role__field input {
+  display: inline;
+  margin-bottom: 1rem;
+}
+
+.Login__image img {
+  width: 30rem;
+  height: 23.75rem;
 }
 
 .App {

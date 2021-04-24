@@ -1,0 +1,70 @@
+@import "./variable";
+@import "./mixins";
+.Login {
+  background-color: $yellowishColor;
+  width: 100vw;
+  height: 100vh;
+  flex: 1 1;
+  font-family: "Mukta", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  &__box {
+    width: 40.0625rem;
+    border: $border;
+    backdrop-filter: $blur;
+    background: $background;
+    border-radius: 22px;
+    flex-direction: column;
+    span {
+      display: block;
+    }
+    .horizontal__line {
+      display: block;
+      border: 2px solid #b7b4b4;
+      width: 90%;
+      background-color: #b7b4b4;
+    }
+    .username__field,
+    .password__field {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-left: 4rem;
+      margin-top: 1rem;
+      font-weight: 400;
+      font-size: 1.875rem;
+      input {
+        width: 89%;
+        height: 3%;
+        font-size: 2.25rem;
+        border-radius: 1rem;
+        border: 2px solid grey;
+      }
+      input:focus {
+        outline: none;
+      }
+    }
+    .role__field {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-left: 4rem;
+      & > span:first-child {
+        font-weight: 400;
+        font-size: 1.875rem;
+      }
+      span{
+        display: inline;
+      }
+      input{
+        display: inline;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  &__image {
+    img {
+      @include imageWidthAndHeight();
+    }
+  }
+}

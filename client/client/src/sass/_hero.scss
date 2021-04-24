@@ -11,7 +11,7 @@
       }
       
       &__image{
-            @include imageWidthAndHeight(100%,380px);
+            @include imageWidthAndHeight();
             img{
                   width: 478px;
                   height: 380px;
