@@ -17,9 +17,21 @@ function Login() {
         </div>
         <div className="role__field">
           <span>Who you are ?</span>
-          <input type="checkbox" name="Admin"/><span>Admin</span>
-          <input type="checkbox" name="Teacher"/>
-          <input type="checkbox" name="Student"/>
+          <div id="admin">
+            <input type="checkbox" name="Admin" />
+            <span>Admin</span>
+          </div>
+          <div id="teacher">
+            <input type="checkbox" name="Teacher" />
+            <span>Teacher</span>
+          </div>
+          <div id="student">
+          <input type="checkbox" name="Student" />
+          <span>Student</span>
+          </div>
+        </div>
+        <div className="Login__button flex__container">
+          <button type="submit">Login</button>
         </div>
       </div>
       <div className="Login__image">
