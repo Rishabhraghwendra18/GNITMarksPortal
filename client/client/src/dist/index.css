@@ -253,6 +253,50 @@ nav div {
   height: 23.75rem;
 }
 
+.Profile {
+  width: 100vw;
+  height: 100vh;
+  background-color: #363434;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  font-family: "Mukta", sans-serif;
+  font-size: 2rem;
+}
+
+.Profile__mine {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 22px;
+  height: 70%;
+  width: 70%;
+  margin-bottom: 3rem;
+}
+
+.Profile__mine .about__me {
+  border-right: 2px solid #363434;
+  width: 50%;
+  height: 70%;
+  white-space: pre-wrap;
+}
+
+.Profile__mine .mine__photo {
+  width: 50%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Profile__mine .mine__photo q {
+  font-style: italic;
+}
+
 .App {
   overflow-x: hidden;
 }
