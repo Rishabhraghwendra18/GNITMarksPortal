@@ -266,6 +266,10 @@ nav div {
   font-size: 2rem;
 }
 
+.Profile h3 {
+  margin-bottom: 1rem;
+}
+
 .Profile__mine {
   border: 1px solid rgba(255, 255, 255, 0.2);
   -webkit-backdrop-filter: blur(10px);
