@@ -284,6 +284,10 @@ nav div {
   white-space: pre-wrap;
 }
 
+.Profile__mine .about__me span {
+  margin-right: 3rem;
+}
+
 .Profile__mine .mine__photo {
   width: 50%;
   height: 100%;
@@ -291,6 +295,12 @@ nav div {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.Profile__mine .mine__photo img {
+  width: 36%;
+  height: 36%;
+  border-radius: 50%;
 }
 
 .Profile__mine .mine__photo q {
