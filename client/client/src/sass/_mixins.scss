@@ -2,3 +2,7 @@
       width: 30rem;
       height: 23.75rem;
 }
+@mixin blurEffect{
+      backdrop-filter: $blur;
+    background: $background;
+}

@@ -311,6 +311,68 @@ nav div {
   font-style: italic;
 }
 
+.StudentDashBoard {
+  height: 100vh;
+  width: 100vw;
+  background-color: #FFEB94;
+}
+
+.StudentDashBoard__marksDiv {
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  width: 60%;
+  height: 60%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20.5rem 0.02rem auto;
+      grid-template-columns: 20.5rem 0.02rem auto;
+  padding: 2rem;
+}
+
+.StudentDashBoard__marksDiv h2 {
+  text-align: center;
+}
+
+.StudentDashBoard__marksDiv .verticalLine {
+  height: 100%;
+  background-color: black;
+}
+
+.StudentDashBoard__marksDiv .studentDetailsAndSemesters {
+  display: -ms-grid;
+  display: grid;
+  padding: 2rem;
+  -ms-grid-rows: 3fr;
+      grid-template-rows: 3fr;
+  grid-auto-rows: 1fr;
+  font-size: 1.625rem;
+}
+
+.StudentDashBoard__marksDiv .studentDetailsAndSemesters div:first-child p {
+  margin-bottom: 0.5rem;
+}
+
+.StudentDashBoard__marksDiv .studentDetailsAndSemesters div:not(:first-child) {
+  width: 100%;
+  border-bottom: 2px solid black;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.StudentDashBoard__marksDiv .studentDetailsAndSemesters .semester__number {
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.StudentDashBoard__marksDiv .studentMarks {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 35rem 0.02rem auto;
+      grid-template-columns: 35rem 0.02rem auto;
+}
+
 .App {
   overflow-x: hidden;
 }
