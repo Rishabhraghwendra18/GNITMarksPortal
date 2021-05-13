@@ -1,0 +1,44 @@
+.TeachersDashboard{
+      width: 100vw;
+      height: 100vh;
+      background-color: $yellowishColor;
+      flex-direction: column;
+      a{
+            margin: 3rem;
+            margin-left: auto;
+      }
+      .uploadButton{
+            width: 13rem;
+            font-size: 1.5rem;
+            background-color: $blueColor;
+            color: white;
+            height: 3.9375rem;
+            border-radius: 1.3125rem;
+            &:hover{
+                  cursor: pointer;
+                  border: 3px solid black;
+            }
+      }
+      .dashboard{
+            @include dashBoard;
+            @include blurEffect;
+            display: grid;
+            grid-template-columns: 1.5fr 4fr;
+            padding: 2rem;
+            & div{
+                  padding: 1rem;
+            }
+            .teacherInformation{
+                  display: grid;
+                  border-right: 2px solid black;
+            }
+            table{
+                  width: 100%;
+                  font-size: 1.3rem;
+                  & th td{
+                        border: 1px solid black;
+                  }
+            }
+            
+      }
+}

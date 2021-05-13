@@ -7,7 +7,7 @@ function NavBar() {
     <nav>
       <img src={logo} alt="Logo" />
       <div>
-        <Link to="/studentDashboard">
+        <Link to="/studentdashboard">
           Home
         </Link>
         <a href="#">Login</a>

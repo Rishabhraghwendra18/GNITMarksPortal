@@ -373,6 +373,67 @@ nav div {
       grid-template-columns: 35rem 0.02rem auto;
 }
 
+.TeachersDashboard {
+  width: 100vw;
+  height: 100vh;
+  background-color: #FFEB94;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.TeachersDashboard a {
+  margin: 3rem;
+  margin-left: auto;
+}
+
+.TeachersDashboard .uploadButton {
+  width: 13rem;
+  font-size: 1.5rem;
+  background-color: #265FAE;
+  color: white;
+  height: 3.9375rem;
+  border-radius: 1.3125rem;
+}
+
+.TeachersDashboard .uploadButton:hover {
+  cursor: pointer;
+  border: 3px solid black;
+}
+
+.TeachersDashboard .dashboard {
+  width: 60%;
+  height: 60%;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.4);
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1.5fr 4fr;
+      grid-template-columns: 1.5fr 4fr;
+  padding: 2rem;
+}
+
+.TeachersDashboard .dashboard div {
+  padding: 1rem;
+}
+
+.TeachersDashboard .dashboard .teacherInformation {
+  display: -ms-grid;
+  display: grid;
+  border-right: 2px solid black;
+}
+
+.TeachersDashboard .dashboard table {
+  width: 100%;
+  font-size: 1.3rem;
+}
+
+.TeachersDashboard .dashboard table th td {
+  border: 1px solid black;
+}
+
 .App {
   overflow-x: hidden;
 }

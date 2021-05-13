@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import StudentDashboard from "./authPages/StudentDashboard";
 import NavBar from "./landingPage/components/NavBar";
+import TeachersDashboard from "./authPages/TeachersDashboard";
 
 function App() {
   return (
@@ -9,11 +10,11 @@ function App() {
       <BrowserRouter>
       <NavBar />
         <Switch>
-          <Route path="/studentDashboard">
-            <StudentDashboard />
+          <Route path="/teacherdashboard" component={TeachersDashboard}>
           </Route>
-          <Route path="/">
-            <Home />
+          <Route path="/studentdashboard" component={StudentDashboard}>
+          </Route>
+          <Route path="/" component={Home}>
           </Route>
         </Switch>
       </BrowserRouter>
