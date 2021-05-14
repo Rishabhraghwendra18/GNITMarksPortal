@@ -1,0 +1,34 @@
+.AdminDashboard {
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: $yellowishColor;
+  a {
+    margin: 3rem;
+    margin-left: auto;
+  }
+  .uploadButton {
+    width: 13rem;
+    font-size: 1.5rem;
+    background-color: $blueColor;
+    color: white;
+    height: 3.9375rem;
+    border-radius: 1.3125rem;
+    &:hover {
+      cursor: pointer;
+      border: 3px solid black;
+    }
+  }
+  .dashboard {
+    width: 85%;
+    height: 74%;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    grid-gap: 1rem;
+    padding: 2rem;
+    .teacher__student{
+          padding: 3rem;
+          border-right: 1px solid black;
+    }
+  }
+}
