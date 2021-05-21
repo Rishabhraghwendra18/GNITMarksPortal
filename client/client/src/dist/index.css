@@ -494,6 +494,21 @@ nav div {
           justify-content: center;
 }
 
+.UploadMarks {
+  width: 100vw;
+  height: 100vh;
+}
+
+.UploadMarks .Form {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .App {
   overflow-x: hidden;
 }

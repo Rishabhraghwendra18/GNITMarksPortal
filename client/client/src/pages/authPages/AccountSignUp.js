@@ -14,7 +14,7 @@ function AccountSignUp() {
   return (
     <div className="AccountSignUp flex__container">
       <div className="Form">
-        <FormControl id="email" width="50%">
+        <FormControl width="50%">
           <HStack spacing="24px" marginBottom="1rem">
             <FormLabel fontSize="1.5rem">Name</FormLabel>
             <Input
