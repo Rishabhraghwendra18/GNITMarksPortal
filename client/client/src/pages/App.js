@@ -3,7 +3,7 @@ import Home from "./Home";
 import StudentDashboard from "./authPages/StudentDashboard";
 import NavBar from "./landingPage/components/NavBar";
 import TeachersDashboard from "./authPages/TeachersDashboard";
-import AdminDashboard from "./authPages/AdminDashboard";
+import Admin from "./authPages/Admin";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
       <NavBar />
         <Switch>
-          <Route path="/admindashboard" component={AdminDashboard}/>
+          <Route path="/admindashboard" component={Admin}/>
           <Route path="/teacherdashboard" component={TeachersDashboard}>
           </Route>
           <Route path="/studentdashboard" component={StudentDashboard}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import {
   Tabs,
   TabList,
@@ -9,7 +9,7 @@ import {
   Button,
   Stack,
 } from "@chakra-ui/react";
-import DataShowingTable from "./components/DataShowingTable";
+import DataShowingTable from "./DataShowingTable";
 
 function AdminDashboard() {
   return (
@@ -39,17 +39,17 @@ function AdminDashboard() {
           </Stack>
         </div>
         <div className="data">
-          <Tabs variant="enclosed" >
+          <Tabs variant="enclosed">
             <TabList>
-              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Tab 1</Tab>
-              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Tab 2</Tab>
+              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Subject 1</Tab>
+              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Subject 2</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
-                <DataShowingTable/>
+                <DataShowingTable />
               </TabPanel>
               <TabPanel>
-              <DataShowingTable/>
+                <DataShowingTable />
               </TabPanel>
             </TabPanels>
           </Tabs>

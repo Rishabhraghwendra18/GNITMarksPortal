@@ -479,6 +479,21 @@ nav div {
   border-right: 1px solid black;
 }
 
+.AccountSignUp {
+  width: 100vw;
+  height: 100vh;
+}
+
+.AccountSignUp .Form {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .App {
   overflow-x: hidden;
 }
