@@ -1,7 +1,6 @@
 const express = require('express');
 const app=express();
-// const data =require('./databaseAndConnectors/database/data');
-const client=require("./databaseAndConnectors/database/postgresqlIntialization");
+const client=require("./database/postgresqlIntialization");
 const admin=require('./routes/admin');
 const userAuthentication =require('./middlewares/authenticationMiddlewares/userAuthentication');
 

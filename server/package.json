@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index",
     "dev": "nodemon ./src/developmentServer/server.js",
-    "test": "jest --watchAll --detectOpenHandles --testTimeout=10000"
+    "test": "node -r dotenv/config $(which jest) --watchAll --detectOpenHandles --testTimeout=10000"
   },
   "author": "Rishabh Raghwendra",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "pg": "^8.6.0"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
