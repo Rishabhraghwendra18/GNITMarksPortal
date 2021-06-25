@@ -15,20 +15,18 @@ describe("1st test", () => {
     app.client.connect();
     adminLoginCredentials.id = process.env.ADMIN_ID;
     adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
-    app.client.query("TRUNCATE TABLE users;", (error) =>
+    const tables=['users','students','teachers'];
+    tables.map(e=>{
+      app.client.query(`TRUNCATE TABLE ${e};`, (error) =>
       expect(error).toBe(null)
     );
+    })
     app.client.query(
       `INSERT INTO users(ID,role,password)VALUES('${
         adminLoginCredentials.id
       }','ADMIN','${sha256(adminLoginCredentials.password)}');`
     );
   });
-  afterAll(() =>
-    app.client.query("TRUNCATE TABLE users;", (error) =>
-      expect(error).toBe(null)
-    )
-  );
   it("GET / . Status code must be 203", async () => {
     const body = { id: 3, password: "jksjafdklsa" };
     const res = await getRequest("/", body);
@@ -49,15 +47,32 @@ describe("1st test", () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
     expect(res.body).toEqual([{}]);
   });
-  it("POST admin/adduser", async () => {
+  it("POST admin/adduser . Add a student", async () => {
     adminLoginCredentials.user = {
       id: "IPUTEST778",
+      name:"xyz",
+      branch:"CSE",
       role: "student",
       password: "IPUSTUD",
+      sem1:true,
     };
     const res = await postRequest("/admin/adduser", adminLoginCredentials);
+    expect(res.status).toBe(200);
     expect(res.body).toBe(false);
   });
+  it("POST admin/adduser . Add a teacher",async ()=>{
+    adminLoginCredentials.user = {
+      id: "IPUTEST779",
+      name:"xyz",
+      subject:"maths",
+      role: "teacher",
+      password: "IPUSTeacher",
+      sem1:true,
+    };
+    const res = await postRequest("/admin/adduser", adminLoginCredentials);
+    expect(res.status).toBe(200);
+    expect(res.body).toBe(false);
+  })
   it("GET allUsers", async () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
     expect(res.body).toEqual(

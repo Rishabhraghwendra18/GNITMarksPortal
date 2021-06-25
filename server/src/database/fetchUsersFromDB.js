@@ -49,21 +49,33 @@ function selectAllUsers() {
 function addUser(user) {
   return new Promise((resolve, reject) => {
     user["password"] = sha256(user.password);
-    const query = `INSERT INTO users(ID,role,password)VALUES('${user.id}','${user.role}','${user.password}');`;
-    client.query(query, (postgressError, postgresResponse) => {
-      if (postgressError) {
-        console.log("post: ", postgressError.detail);
-        reject({
-          error: true,
-          status: 500,
-          description: postgressError.detail,
+    const query = [
+      `INSERT INTO users(ID,role,password)VALUES('${user.id}','${user.role}','${user.password}');`,
+    ];
+    const branchOrSubject = user.branch ? "branch" : "subject";
+    const arrayOfKeysFromObject = Object.entries(user);
+    const SEMESTER_NUMBER_AT_INDEX = 0;
+    const semesterNumber = arrayOfKeysFromObject.filter(
+      ([semester, value]) => value===true
+    ).flat()[SEMESTER_NUMBER_AT_INDEX];
+    query.push(
+      `INSERT INTO ${user.role}s(id,name,${semesterNumber},${branchOrSubject}) VALUES('${user.id}','${user.name}','true','${user[branchOrSubject]}');`
+    );
+    query.map(query=>{
+      client.query(query, (postgressError, postgresResponse) => {
+        if (postgressError) {
+          reject({
+            error: true,
+            status: 500,
+            description: postgressError.detail,
+          });
+        }
+        resolve({
+          error: false,
+          status: 200,
         });
-      }
-      resolve({
-        error: false,
-        status: 200,
       });
-    });
+    })
   });
 }
 module.exports = {
