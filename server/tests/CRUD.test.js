@@ -10,15 +10,25 @@ function postRequest(endPoint, jsonBody) {
   return request.post(endPoint).send(jsonBody);
 }
 describe("1st test", () => {
-  const adminLoginCredentials={};
+  const adminLoginCredentials = {};
   beforeAll(() => {
     app.client.connect();
-    adminLoginCredentials.id= process.env.ADMIN_ID
-    adminLoginCredentials.password=process.env.ADMIN_PASSWORD
-    app.client.query('TRUNCATE TABLE users;',(error)=>expect(error).toBe(null));
-    app.client.query(`INSERT INTO users(ID,role,password)VALUES('${adminLoginCredentials.id}','ADMIN','${sha256(adminLoginCredentials.password)}');`)
+    adminLoginCredentials.id = process.env.ADMIN_ID;
+    adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
+    app.client.query("TRUNCATE TABLE users;", (error) =>
+      expect(error).toBe(null)
+    );
+    app.client.query(
+      `INSERT INTO users(ID,role,password)VALUES('${
+        adminLoginCredentials.id
+      }','ADMIN','${sha256(adminLoginCredentials.password)}');`
+    );
   });
-  afterAll(()=>app.client.query('TRUNCATE TABLE users;',(error)=>expect(error).toBe(null)))
+  afterAll(() =>
+    app.client.query("TRUNCATE TABLE users;", (error) =>
+      expect(error).toBe(null)
+    )
+  );
   it("GET / . Status code must be 203", async () => {
     const body = { id: 3, password: "jksjafdklsa" };
     const res = await getRequest("/", body);
@@ -37,15 +47,25 @@ describe("1st test", () => {
   });
   it("GET admin/Dashboard ", async () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual([{}]); 
+    expect(res.body).toEqual([{}]);
   });
   it("POST admin/adduser", async () => {
-    adminLoginCredentials.user={
-      "id":"IPUTEST778",
-      "role":"student",
-      "password":"IPUSTUD"
-  };
+    adminLoginCredentials.user = {
+      id: "IPUTEST778",
+      role: "student",
+      password: "IPUSTUD",
+    };
     const res = await postRequest("/admin/adduser", adminLoginCredentials);
     expect(res.body).toBe(false);
+  });
+  it("GET allUsers", async () => {
+    const res = await getRequest("/admin/dashboard", adminLoginCredentials);
+    expect(res.body).toEqual(
+      expect.arrayContaining([{
+        id: "IPUTEST778",
+        role: "student",
+        password: "IPUSTUD",
+      }])
+    );
   });
 });
