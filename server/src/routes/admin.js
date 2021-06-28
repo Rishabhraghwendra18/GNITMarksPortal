@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const authRole = require("../middlewares/permissonMiddlewares/authRole");
-const { addUser } = require("../database/fetchUsersFromDB");
+const { addUser,selectAllUsers } = require("../database/fetchUsersFromDB");
 
 router.get("/dashboard", authRole("ADMIN"), (req, res) => {
+  selectAllUsers()
+  .then(e=>{
   res.status(200);
-  res.json([{}]);
+  res.json(e);
+  })
+  .catch(e=>{
+    res.status(500);
+    res.json(e)
+  })
 });
 router.post("/adduser", authRole("ADMIN"), (req, res) => {
   const user = req.body.user;

@@ -43,9 +43,9 @@ describe("1st test", () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
     expect(res.statusCode).toBe(200);
   });
-  it("GET admin/Dashboard ", async () => {
+  it("GET admin/Dashboard . Before any user in db ", async () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual([{}]);
+    expect(res.body).toEqual({"students": [], "teachers": []});
   });
   it("POST admin/adduser . Add a student", async () => {
     adminLoginCredentials.user = {
@@ -73,14 +73,25 @@ describe("1st test", () => {
     expect(res.status).toBe(200);
     expect(res.body).toBe(false);
   })
-  it("GET allUsers", async () => {
+  it("GET allUsers . After some users in db", async () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual(
-      expect.arrayContaining([{
-        id: "IPUTEST778",
-        role: "student",
-        password: "IPUSTUD",
-      }])
+    expect(res.body).toHaveProperty('students');
+    expect(res.body).toHaveProperty('teachers');
+    expect(res.body).toMatchObject(
+    {
+        "students":[{
+          id: "IPUTEST778",
+          name:"xyz",
+          branch:"CSE",
+          sem1:true,
+        }],
+        "teachers":[{
+          id: "IPUTEST779",
+          name:"xyz",
+          subject:"maths",
+          sem1:true,
+        }],
+      }
     );
   });
 });

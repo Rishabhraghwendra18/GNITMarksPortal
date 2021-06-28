@@ -33,7 +33,7 @@ function selectAllTeachers() {
   });
 }
 function selectAllUsers() {
-  return new Promise((reject, resolve) => {
+  return new Promise((resolve, reject) => {
     const usersData = {};
     selectAllStudents()
       .then((e) => (usersData.students = e))
