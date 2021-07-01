@@ -1,8 +1,8 @@
 const client = require("./postgresqlIntialization");
 const sha256 = require("js-sha256").sha256;
-function selectAllStudents() {
+function selectAllStudents(semester) {
   return new Promise((resolve, reject) => {
-    const query = "SELECT * FROM students RIGHT JOIN student_semester_lists ON students.id=student_semester_lists.id;";
+    const query = "SELECT students.id,students.name,students.branch FROM students RIGHT JOIN student_semester_lists ON students.id=student_semester_lists.id;";
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
         console.log("post: ", postgressError.detail);
@@ -16,9 +16,9 @@ function selectAllStudents() {
     });
   });
 }
-function selectAllTeachers() {
+function selectAllTeachers(semester) {
   return new Promise((resolve, reject) => {
-    const query = "SELECT * FROM teachers RIGHT JOIN teacher_semester_lists ON teachers.id=teacher_semester_lists.id;";
+    const query = `SELECT teachers.id,teachers.name,teachers.subject FROM teachers RIGHT JOIN teacher_semester_lists ON teachers.id=teacher_semester_lists.id WHERE teacher_semester_lists.semester='${semester}';`;
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
         console.log("post: ", postgressError.detail);
@@ -32,13 +32,13 @@ function selectAllTeachers() {
     });
   });
 }
-function selectAllUsers() {
+function selectAllUsers(semester) {
   return new Promise((resolve, reject) => {
     const usersData = {};
-    selectAllStudents()
+    selectAllStudents(semester)
       .then((e) => (usersData.students = e))
       .catch((e) => reject("Error in selectAllStudents()", e));
-    selectAllTeachers()
+    selectAllTeachers(semester)
       .then((e) => {
         usersData.teachers = e;
         resolve(usersData);

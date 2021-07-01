@@ -15,12 +15,26 @@ describe("1st test", () => {
     app.client.connect();
     adminLoginCredentials.id = process.env.ADMIN_ID;
     adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
-    const tables=['users','student_semester_lists','teacher_semester_lists','students','teachers','sem1','sem2','sem3','sem4','sem5','sem6','sem7','sem8'];
-    tables.map(e=>{
+    const tables = [
+      "users",
+      "student_semester_lists",
+      "teacher_semester_lists",
+      "students",
+      "teachers",
+      "sem1",
+      "sem2",
+      "sem3",
+      "sem4",
+      "sem5",
+      "sem6",
+      "sem7",
+      "sem8",
+    ];
+    tables.map((e) => {
       app.client.query(`TRUNCATE TABLE ${e};`, (error) =>
-      expect(error).toBe(null)
-    );
-    })
+        expect(error).toBe(null)
+      );
+    });
     app.client.query(
       `INSERT INTO users(ID,role,password)VALUES('${
         adminLoginCredentials.id
@@ -45,51 +59,143 @@ describe("1st test", () => {
   });
   it("GET admin/Dashboard . Before any user in db ", async () => {
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual({"students": [], "teachers": []});
+    expect(res.body).toEqual({ students: [], teachers: [] });
   });
-  it("POST admin/adduser . Add a student", async () => {
-    adminLoginCredentials.user = {
-      id: "IPUTEST778",
-      name:"xyz",
-      branch:"CSE",
-      role: "student",
-      password: "IPUSTUD",
-      sem1:true,
-    };
-    const res = await postRequest("/admin/adduser", adminLoginCredentials);
-    expect(res.status).toBe(200);
-    expect(res.body).toBe(false);
+  it("POST admin/adduser . Add students", () => {
+    const students = [
+      {
+        id: "IPUTEST778",
+        name: "xyz",
+        branch: "CSE",
+        role: "student",
+        password: "IPUSTUD",
+        sem1: true,
+      },
+      {
+        id: "IPUTEST608",
+        name: "Prem Chand",
+        branch: "ME",
+        role: "student",
+        password: "PremSTUD",
+        sem6: true,
+      },
+      {
+        id: "IPUTEST500",
+        name: "Kum Lal",
+        branch: "IT",
+        role: "student",
+        password: "KumLal@1",
+        sem8: true,
+      },
+      {
+        id: "IPUTEST999",
+        name: "Aksh Bhatia",
+        branch: "CSE",
+        role: "student",
+        password: "Aksh@6",
+        sem4: true,
+      },
+    ];
+    students.map(async (e) => {
+      adminLoginCredentials.user = e;
+      const res = await postRequest("/admin/adduser", adminLoginCredentials);
+      expect(res.status).toBe(200);
+      expect(res.body).toBe(false);
+    });
   });
-  it("POST admin/adduser . Add a teacher",async ()=>{
-    adminLoginCredentials.user = {
-      id: "IPUTEST779",
-      name:"xyz",
-      subject:"maths",
-      role: "teacher",
-      password: "IPUSTeacher",
-      sem1:true,
-    };
-    const res = await postRequest("/admin/adduser", adminLoginCredentials);
-    expect(res.status).toBe(200);
-    expect(res.body).toBe(false);
-  })
+  it("POST admin/adduser . Add teachers", () => {
+    const teachers = [
+      {
+        id: "IPUTEST779",
+        name: "xyz",
+        subject: "maths",
+        role: "teacher",
+        password: "IPUSTeacher",
+        sem1: true,
+      },
+      {
+        id: "IPUTEST100",
+        name: "A",
+        subject: "maths",
+        role: "teacher",
+        password: "A@1",
+        sem7: true,
+      },
+      {
+        id: "IPUTEST120",
+        name: "ABC",
+        subject: "physics",
+        role: "teacher",
+        password: "ABC@1",
+        sem5: true,
+      },
+      {
+        id: "IPUTEST550",
+        name: "Gaurav",
+        subject: "Chemistry",
+        role: "teacher",
+        password: "Gaurav@33",
+        sem3: true,
+      },
+    ];
+    teachers.map(async (e) => {
+      adminLoginCredentials.user = e;
+      const res = await postRequest("/admin/adduser", adminLoginCredentials);
+      expect(res.status).toBe(200);
+      expect(res.body).toBe(false);
+    });
+  });
   it("GET allUsers . After some users in db", async () => {
+    const students = [
+      {
+        id: "IPUTEST778",
+        name: "xyz",
+        branch: "CSE",
+      },
+      {
+        id: "IPUTEST608",
+        name: "Prem Chand",
+        branch: "ME",
+      },
+      {
+        id: "IPUTEST500",
+        name: "Kum Lal",
+        branch: "IT",
+      },
+      {
+        id: "IPUTEST999",
+        name: "Aksh Bhatia",
+        branch: "CSE",
+      },
+    ];
+    const teachers = [
+      {
+        id: "IPUTEST779",
+        name: "xyz",
+        subject: "maths",
+      },
+      {
+        id: "IPUTEST100",
+        name: "A",
+        subject: "maths",
+      },
+      {
+        id: "IPUTEST120",
+        name: "ABC",
+        subject: "physics",
+      },
+      {
+        id: "IPUTEST550",
+        name: "Gaurav",
+        subject: "Chemistry",
+      },
+    ];
     const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toHaveProperty('students');
-    expect(res.body).toHaveProperty('teachers');
-    expect(res.body).toMatchObject(
-    {
-        "students":[{
-          id: "IPUTEST778",
-          name:"xyz",
-          branch:"CSE",
-        }],
-        "teachers":[{
-          id: "IPUTEST779",
-          name:"xyz",
-          subject:"maths",
-        }],
-      }
-    );
+    expect(res.body).toHaveProperty("students");
+    expect(res.body).toHaveProperty("teachers");
+    expect(res.body).toMatchObject({
+      students,
+      teachers
+    });
   });
 });

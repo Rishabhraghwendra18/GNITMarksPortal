@@ -4,7 +4,8 @@ const authRole = require("../middlewares/permissonMiddlewares/authRole");
 const { addUser,selectAllUsers } = require("../database/fetchUsersFromDB");
 
 router.get("/dashboard", authRole("ADMIN"), (req, res) => {
-  selectAllUsers()
+  const semester=req.query.semester;
+  selectAllUsers(semester)
   .then(e=>{
   res.status(200);
   res.json(e);
