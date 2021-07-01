@@ -15,7 +15,7 @@ describe("1st test", () => {
     app.client.connect();
     adminLoginCredentials.id = process.env.ADMIN_ID;
     adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
-    const tables=['users','students','teachers'];
+    const tables=['users','student_semester_lists','teacher_semester_lists','students','teachers','sem1','sem2','sem3','sem4','sem5','sem6','sem7','sem8'];
     tables.map(e=>{
       app.client.query(`TRUNCATE TABLE ${e};`, (error) =>
       expect(error).toBe(null)
@@ -83,13 +83,11 @@ describe("1st test", () => {
           id: "IPUTEST778",
           name:"xyz",
           branch:"CSE",
-          sem1:true,
         }],
         "teachers":[{
           id: "IPUTEST779",
           name:"xyz",
           subject:"maths",
-          sem1:true,
         }],
       }
     );
