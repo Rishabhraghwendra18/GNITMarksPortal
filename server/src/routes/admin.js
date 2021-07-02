@@ -4,6 +4,10 @@ const authRole = require("../middlewares/permissonMiddlewares/authRole");
 const { addUser,selectAllUsers } = require("../database/fetchUsersFromDB");
 
 router.get("/dashboard", authRole("ADMIN"), (req, res) => {
+  if(!req.query){
+    res.status(400);
+    res.json({error:"Missing query parameter"});
+  }
   const semester=req.query.semester;
   selectAllUsers(semester)
   .then(e=>{

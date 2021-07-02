@@ -54,7 +54,7 @@ describe("1st test", () => {
     });
   });
   it("A Admin", async () => {
-    const res = await getRequest("/admin/dashboard", adminLoginCredentials);
+    const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
     expect(res.statusCode).toBe(200);
   });
   it("GET admin/Dashboard . Before any user in db ", async () => {
@@ -190,7 +190,7 @@ describe("1st test", () => {
         subject: "Chemistry",
       },
     ];
-    const res = await getRequest("/admin/dashboard", adminLoginCredentials);
+    const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
     expect(res.body).toHaveProperty("students");
     expect(res.body).toHaveProperty("teachers");
     expect(res.body).toMatchObject({
