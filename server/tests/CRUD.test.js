@@ -173,22 +173,7 @@ describe("1st test", () => {
         id: "IPUTEST779",
         name: "xyz",
         subject: "maths",
-      },
-      {
-        id: "IPUTEST100",
-        name: "A",
-        subject: "maths",
-      },
-      {
-        id: "IPUTEST120",
-        name: "ABC",
-        subject: "physics",
-      },
-      {
-        id: "IPUTEST550",
-        name: "Gaurav",
-        subject: "Chemistry",
-      },
+      }
     ];
     const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
     expect(res.body).toHaveProperty("students");
