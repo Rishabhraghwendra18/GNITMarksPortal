@@ -1,6 +1,7 @@
 const app = require("../src/index");
 const supertest = require("supertest");
 const sha256 = require("js-sha256").sha256;
+const db=require("../src/database/fetchUsersFromDB");
 const request = supertest(app);
 
 function getRequest(endPoint, jsonBody = null) {
@@ -17,8 +18,7 @@ describe("1st test", () => {
     adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
     const tables = [
       "users",
-      "student_semester_lists",
-      "teacher_semester_lists",
+      "semester_lists",
       "students",
       "teachers",
       "sem1",
@@ -43,23 +43,43 @@ describe("1st test", () => {
   });
   it("GET / . Status code must be 203", async () => {
     const body = { id: 3, password: "jksjafdklsa" };
-    const res = await getRequest("/", body);
-    expect(res.status).toBe(203);
+    try {
+      const res = await getRequest("/", body);
+      expect(res.status).toBe(203);
+      
+    } catch (error) {
+      console.log("error: ",error);
+    }
   });
   it("Not a Admin", async () => {
-    const res = await getRequest("/admin?id=1&?id=1");
+    try {
+      const res = await getRequest("/admin?id=1&?id=1");
     expect(res.body).toEqual({
       isUser: false,
       desc: "Please enter your password in input field",
     });
+    } catch (error) {
+      console.log("error: ",error);
+    }
+    
   });
   it("A Admin", async () => {
-    const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
-    expect(res.statusCode).toBe(200);
+    try {
+      const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
+      expect(res.statusCode).toBe(200);
+      
+    } catch (error) {
+      console.log("error: ",error);
+    }
   });
   it("GET admin/Dashboard . Before any user in db ", async () => {
-    const res = await getRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual({ students: [], teachers: [] });
+    try {
+      const res = await getRequest("/admin/dashboard", adminLoginCredentials);
+      expect(res.body).toEqual({ students: [], teachers: [] });
+      
+    } catch (error) {
+      console.log("error: ",error);
+    }
   });
   it("POST admin/adduser . Add students", () => {
     const students = [
@@ -98,9 +118,13 @@ describe("1st test", () => {
     ];
     students.map(async (e) => {
       adminLoginCredentials.user = e;
-      const res = await postRequest("/admin/adduser", adminLoginCredentials);
-      expect(res.status).toBe(200);
-      expect(res.body).toBe(false);
+      try {
+        const res = await postRequest("/admin/adduser", adminLoginCredentials);
+        expect(res.status).toBe(200);
+        expect(res.body).toBe(false);
+      } catch (error) {
+        console.log("error: ",error);
+      }
     });
   });
   it("POST admin/adduser . Add teachers", () => {
@@ -140,9 +164,13 @@ describe("1st test", () => {
     ];
     teachers.map(async (e) => {
       adminLoginCredentials.user = e;
-      const res = await postRequest("/admin/adduser", adminLoginCredentials);
-      expect(res.status).toBe(200);
-      expect(res.body).toBe(false);
+      try {
+        const res = await postRequest("/admin/adduser", adminLoginCredentials);
+        expect(res.status).toBe(200);
+        expect(res.body).toBe(false);
+      } catch (error) {
+        console.log("error: ",error);
+      }
     });
   });
   it("GET allUsers . After some users in db", async () => {
@@ -175,12 +203,26 @@ describe("1st test", () => {
         subject: "maths",
       }
     ];
-    const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
-    expect(res.body).toHaveProperty("students");
-    expect(res.body).toHaveProperty("teachers");
-    expect(res.body).toMatchObject({
-      students,
-      teachers
-    });
+    try {
+      const res = await getRequest("/admin/dashboard?category=student&semester=sem1", adminLoginCredentials);
+      expect(res.body).toHaveProperty("students");
+      expect(res.body).toHaveProperty("teachers");
+      expect(res.body).toMatchObject({
+        students,
+        teachers
+      });
+    } catch (error) {
+      console.log("error: ",error);
+    }
+  });
+  it("Get all students of sem1 . GET /teacher/dashboard",async ()=>{
+    const res= await getRequest("/teacher/dashboard",adminLoginCredentials);
+    const dbData= await db.selectAllStudents("sem1");
+    expect(res.body).toMatchObject(dbData);
+    
+    // try {
+    // } catch (error) {
+    //   console.log("error: ",error);
+    // }
   });
 });

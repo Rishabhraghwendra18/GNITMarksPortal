@@ -2,7 +2,7 @@ const client = require("./postgresqlIntialization");
 const sha256 = require("js-sha256").sha256;
 function selectAllStudents(semester) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT students.id,students.name,students.branch FROM students RIGHT JOIN student_semester_lists ON students.id=student_semester_lists.id WHERE student_semester_lists.semester='${semester}';`;
+    const query = `SELECT students.id,students.name,students.branch FROM students JOIN semester_lists ON students.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
         console.log("post: ", postgressError);
@@ -19,7 +19,7 @@ function selectAllStudents(semester) {
 }
 function selectAllTeachers(semester) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT teachers.id,teachers.name,teachers.subject FROM teachers RIGHT JOIN teacher_semester_lists ON teachers.id=teacher_semester_lists.id WHERE teacher_semester_lists.semester='${semester}';`;
+    const query = `SELECT teachers.id,teachers.name,teachers.subject FROM teachers JOIN semester_lists ON teachers.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
         console.log("post: ", postgressError.detail);
@@ -63,7 +63,7 @@ function addUser(user) {
       `INSERT INTO ${user.role}s(id,name,${branchOrSubject}) VALUES('${user.id}','${user.name}','${user[branchOrSubject]}');`
     );
     query.push(
-      `INSERT INTO ${user.role}_semester_lists(id,semester) VALUES('${user.id}','${semesterNumber}');`
+      `INSERT INTO semester_lists(id,semester) VALUES('${user.id}','${semesterNumber}');`
     );
     if(branchOrSubject=="branch")
       query.push(
