@@ -87,6 +87,7 @@ function addUser(user) {
   });
 }
 module.exports = {
+  selectAllStudents,
   selectAllUsers,
   addUser,
 };
