@@ -164,7 +164,7 @@ describe("1st test", () => {
       },
     ];
     const res = await getRequest(
-      "/admin/dashboard?category=student&semester=sem1",
+      "/admin/dashboard?semester=sem1",
       adminLoginCredentials
     );
     expect(res.body).toHaveProperty("students");
