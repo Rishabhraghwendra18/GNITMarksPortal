@@ -1,5 +1,23 @@
 const client = require("./postgresqlIntialization");
 const sha256 = require("js-sha256").sha256;
+function getStudent({semester,id}) {
+  return new Promise((resolve,reject)=>{
+    const query=`SELECT * FROM ${semester} WHERE id='${id}'`;
+    client.query(query,(postgressError,postgresResponse)=>{
+      const STUDENT_DATA_AT_INDEX=0;
+      if (postgressError) {
+        console.log("post: ", postgressError);
+        reject({
+          error: true,
+          status: 500,
+          description: postgressError.detail,
+        });
+        return;
+      }
+      resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+    })
+  })
+}
 function selectAllStudents(semester) {
   return new Promise((resolve, reject) => {
     const query = `SELECT students.id,students.name,students.branch FROM students JOIN semester_lists ON students.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
@@ -87,6 +105,7 @@ function addUser(user) {
   });
 }
 module.exports = {
+  getStudent,
   selectAllStudents,
   selectAllUsers,
   addUser,

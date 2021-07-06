@@ -190,4 +190,13 @@ describe("1st test", () => {
     const dbData = await db.selectAllStudents("sem1");
     expect(res.body).toMatchObject(dbData);
   });
+  it("Get a particular student data. GET /student/dashboard",async()=>{
+    const studentLoginCredentials={
+      id: "IPUTEST778",
+      password: "IPUSTUD",
+    };
+    const res = await getRequest("/student/dashboard", studentLoginCredentials);
+    const dbData = await db.getStudent({semester:"sem1",id:"IPUTEST778"});
+    expect(res.body).toMatchObject(dbData);
+  });
 });
