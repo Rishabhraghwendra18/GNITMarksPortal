@@ -2,7 +2,7 @@ const client = require("../../database/postgresqlIntialization");
 const sha256 = require('js-sha256').sha256;
 function searchUserInDatabase(user) {
   return new Promise((resolve, reject) => {
-    const query = `SELECT * FROM users LEFT JOIN semester_lists ON users.id=semester_lists.id WHERE users.id='${user.body.id}'`;
+    const query = `SELECT * FROM users LEFT JOIN semester_lists ON users.id=semester_lists.id WHERE users.id='${user.body.id}';`;
     client.query(query, (postgressError, postgresResponse) => {
       const FIRST_RECORD_INDEX = 0;
       try {
@@ -21,7 +21,9 @@ function searchUserInDatabase(user) {
       ) {
         reject({ description: "incorrect password" });
       }
-      resolve(postgresResponse.rows[FIRST_RECORD_INDEX]);
+      const userData={...postgresResponse.rows[FIRST_RECORD_INDEX]};
+      delete userData.password;
+      resolve(userData);
     });
   });
 }
