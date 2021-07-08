@@ -7,7 +7,6 @@ function getStudentSemesterNumber(id) {
     client.query(query, (postgressError, postgresResponse) => {
       const STUDENT_DATA_AT_INDEX = 0;
       if (postgressError) {
-        console.log("post: ", postgressError);
         reject({
           error: true,
           status: 500,
@@ -30,7 +29,6 @@ function getTeacherSubject(teacherId) {
     client.query(query, (postgressError, postgresResponse) => {
       const STUDENT_DATA_AT_INDEX = 0;
       if (postgressError) {
-        console.log("post: ", postgressError);
         reject({
           error: true,
           status: 500,
@@ -49,7 +47,6 @@ function getTeacherSubject(teacherId) {
 }
 async function uploadStudentMarks(teacherId, id, marks) {
   try {
-    console.log("student is: ", id);
     const { semester } = await getStudentSemesterNumber(id);
     const { subject } = await getTeacherSubject(teacherId);
     const query = `UPDATE ${semester} SET ${subject}='${marks}' WHERE id='${id}'; `;
@@ -76,7 +73,6 @@ function getStudent({ semester, id }) {
     client.query(query, (postgressError, postgresResponse) => {
       const STUDENT_DATA_AT_INDEX = 0;
       if (postgressError) {
-        console.log("post: ", postgressError);
         reject({
           error: true,
           status: 500,
@@ -93,7 +89,6 @@ function selectAllStudents(semester) {
     const query = `SELECT students.id,students.name,students.branch FROM students JOIN semester_lists ON students.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
-        console.log("post: ", postgressError);
         reject({
           error: true,
           status: 500,
@@ -110,7 +105,6 @@ function selectAllTeachers(semester) {
     const query = `SELECT teachers.id,teachers.name,teachers.subject FROM teachers JOIN semester_lists ON teachers.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
     client.query(query, (postgressError, postgresResponse) => {
       if (postgressError) {
-        console.log("post: ", postgressError.detail);
         reject({
           error: true,
           status: 500,
