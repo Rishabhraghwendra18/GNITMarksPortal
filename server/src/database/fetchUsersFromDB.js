@@ -1,10 +1,80 @@
 const client = require("./postgresqlIntialization");
 const sha256 = require("js-sha256").sha256;
-function getStudent({semester,id}) {
-  return new Promise((resolve,reject)=>{
-    const query=`SELECT * FROM ${semester} WHERE id='${id}'`;
-    client.query(query,(postgressError,postgresResponse)=>{
-      const STUDENT_DATA_AT_INDEX=0;
+
+function getStudentSemesterNumber(id) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT semester_lists.semester FROM semester_lists WHERE id='${id}';`;
+    client.query(query, (postgressError, postgresResponse) => {
+      const STUDENT_DATA_AT_INDEX = 0;
+      if (postgressError) {
+        console.log("post: ", postgressError);
+        reject({
+          error: true,
+          status: 500,
+          description: postgressError.detail,
+        });
+      }
+      if (!Object.keys(postgresResponse.rows).length)
+        reject({
+          error: true,
+          status: 500,
+          description: `No student id with ${id} found`,
+        });
+      resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+    });
+  });
+}
+function getTeacherSubject(teacherId) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT teachers.subject FROM teachers WHERE id='${teacherId}';`;
+    client.query(query, (postgressError, postgresResponse) => {
+      const STUDENT_DATA_AT_INDEX = 0;
+      if (postgressError) {
+        console.log("post: ", postgressError);
+        reject({
+          error: true,
+          status: 500,
+          description: postgressError.detail,
+        });
+      }
+      if (!Object.keys(postgresResponse.rows).length)
+        reject({
+          error: true,
+          status: 500,
+          description: `No teacher id with ${teacherId} found`,
+        });
+      resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+    });
+  });
+}
+async function uploadStudentMarks(teacherId, id, marks) {
+  try {
+    console.log("student is: ", id);
+    const { semester } = await getStudentSemesterNumber(id);
+    const { subject } = await getTeacherSubject(teacherId);
+    const query = `UPDATE ${semester} SET ${subject}='${marks}' WHERE id='${id}'; `;
+    return new Promise((resolve, reject) => {
+      client.query(query, (postgressError, postgresResponse) => {
+        const STUDENT_DATA_AT_INDEX = 0;
+        if (postgressError) {
+          reject({
+            error: true,
+            status: 500,
+            description: postgressError.detail,
+          });
+        }
+        resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+      });
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+function getStudent({ semester, id }) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM ${semester} WHERE id='${id}'`;
+    client.query(query, (postgressError, postgresResponse) => {
+      const STUDENT_DATA_AT_INDEX = 0;
       if (postgressError) {
         console.log("post: ", postgressError);
         reject({
@@ -15,8 +85,8 @@ function getStudent({semester,id}) {
         return;
       }
       resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
-    })
-  })
+    });
+  });
 }
 function selectAllStudents(semester) {
   return new Promise((resolve, reject) => {
@@ -74,20 +144,18 @@ function addUser(user) {
     const branchOrSubject = user.branch ? "branch" : "subject";
     const arrayOfKeysFromObject = Object.entries(user);
     const SEMESTER_NUMBER_AT_INDEX = 0;
-    const semesterNumber = arrayOfKeysFromObject.filter(
-      ([semester, value]) => value===true
-    ).flat()[SEMESTER_NUMBER_AT_INDEX];
+    const semesterNumber = arrayOfKeysFromObject
+      .filter(([semester, value]) => value === true)
+      .flat()[SEMESTER_NUMBER_AT_INDEX];
     query.push(
       `INSERT INTO ${user.role}s(id,name,${branchOrSubject}) VALUES('${user.id}','${user.name}','${user[branchOrSubject]}');`
     );
     query.push(
       `INSERT INTO semester_lists(id,semester) VALUES('${user.id}','${semesterNumber}');`
     );
-    if(branchOrSubject=="branch")
-      query.push(
-        `INSERT INTO ${semesterNumber}(id) VALUES('${user.id}');`
-      );
-    query.map(query=>{
+    if (branchOrSubject == "branch")
+      query.push(`INSERT INTO ${semesterNumber}(id) VALUES('${user.id}');`);
+    query.map((query) => {
       client.query(query, (postgressError, postgresResponse) => {
         if (postgressError) {
           reject({
@@ -105,6 +173,7 @@ function addUser(user) {
   });
 }
 module.exports = {
+  uploadStudentMarks,
   getStudent,
   selectAllStudents,
   selectAllUsers,

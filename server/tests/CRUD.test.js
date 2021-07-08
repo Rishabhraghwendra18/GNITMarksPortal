@@ -10,6 +10,9 @@ function getRequest(endPoint, jsonBody = null) {
 function postRequest(endPoint, jsonBody) {
   return request.post(endPoint).send(jsonBody);
 }
+function putRequest(endPoint,jsonBody){
+  return request.put(endPoint).send(jsonBody);
+}
 describe("1st test", () => {
   const adminLoginCredentials = {};
   beforeAll(() => {
@@ -111,7 +114,7 @@ describe("1st test", () => {
       {
         id: "IPUTEST779",
         name: "xyz",
-        subject: "maths",
+        subject: "applied_mathematics",
         role: "teacher",
         password: "IPUSTeacher",
         sem1: true,
@@ -119,7 +122,7 @@ describe("1st test", () => {
       {
         id: "IPUTEST100",
         name: "A",
-        subject: "maths",
+        subject: "information_security",
         role: "teacher",
         password: "A@1",
         sem7: true,
@@ -127,7 +130,7 @@ describe("1st test", () => {
       {
         id: "IPUTEST120",
         name: "ABC",
-        subject: "physics",
+        subject: "industrial_management",
         role: "teacher",
         password: "ABC@1",
         sem5: true,
@@ -135,7 +138,7 @@ describe("1st test", () => {
       {
         id: "IPUTEST550",
         name: "Gaurav",
-        subject: "Chemistry",
+        subject: "circuits_and_system",
         role: "teacher",
         password: "Gaurav@33",
         sem3: true,
@@ -160,7 +163,7 @@ describe("1st test", () => {
       {
         id: "IPUTEST779",
         name: "xyz",
-        subject: "maths",
+        subject: "applied_mathematics",
       },
     ];
     const res = await getRequest(
@@ -189,6 +192,37 @@ describe("1st test", () => {
     const res = await getRequest("/teacher/dashboard", teacherLoginCredentials);
     const dbData = await db.selectAllStudents("sem1");
     expect(res.body).toMatchObject(dbData);
+  });
+
+  it("Update student record in respective semester. PUT /teacher/uploadmarks",async ()=>{
+    const teacherLoginCredentials={
+      id: "IPUTEST779",
+      password: "IPUSTeacher",
+      student:{
+          "id":"IPUTEST778",
+          "marks":80
+      }
+  };
+    const res = await putRequest("/teacher/uploadmarks", teacherLoginCredentials);
+    const response={status:200};
+    expect(res.body).toMatchObject(response);
+  });
+  it("Giving wrong student ID.PUT /teacher/uploadmarks",async()=>{
+    const teacherLoginCredentials={
+      id: "IPUTEST779",
+      password: "IPUSTeacher",
+      student:{
+          id:8888,
+          "marks":80
+      }
+  };
+    const res = await putRequest("/teacher/uploadmarks", teacherLoginCredentials);
+    const response={
+      error: true,
+      status: 500,
+      description: "No student id with 8888 found"
+  };
+    expect(res.body).toMatchObject(response);
   });
   it("Get a particular student data. GET /student/dashboard",async()=>{
     const studentLoginCredentials={
