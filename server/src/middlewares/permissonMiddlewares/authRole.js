@@ -1,3 +1,4 @@
+
 function authRole(role) {
   return (req, res, next) => {
     if (req.user.role!==role) {
@@ -8,4 +9,5 @@ function authRole(role) {
     next();
   };
 }
+
 module.exports=authRole
