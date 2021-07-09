@@ -1,5 +1,18 @@
 const client = require("../../database/postgresqlIntialization");
 const sha256 = require('js-sha256').sha256;
+
+function userAuthentication(req, res, next) {
+  searchUserInDatabase(req)
+    .then((e) => {
+      req.user = e;
+      next();
+    })
+    .catch((e) => {
+      res.status(203);
+      res.json({ isUser: false, desc: e.description });
+      return;
+    });
+}
 function searchUserInDatabase(user) {
   return new Promise((resolve, reject) => {
     const query = `SELECT * FROM users LEFT JOIN semester_lists ON users.id=semester_lists.id WHERE users.id='${user.body.id}';`;
@@ -28,16 +41,4 @@ function searchUserInDatabase(user) {
   });
 }
 
-function userAuthentication(req, res, next) {
-  searchUserInDatabase(req)
-    .then((e) => {
-      req.user = e;
-      next();
-    })
-    .catch((e) => {
-      res.status(203);
-      res.json({ isUser: false, desc: e.description });
-      return;
-    });
-}
 module.exports = userAuthentication;
