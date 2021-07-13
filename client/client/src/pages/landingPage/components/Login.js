@@ -4,7 +4,7 @@ import login from "../../../assets/login.svg";
 function Login() {
   return (
     <div className="Login flex__container" title="Login">
-      <div className="Login__box flex__container">
+      <div className="Login__box flex__container" title="Login_Box">
         <span>LOGIN</span>
         <span className="horizontal__line"></span>
         <div className="username__field">
@@ -34,7 +34,7 @@ function Login() {
           <button type="submit">Login</button>
         </div>
       </div>
-      <div className="Login__image">
+      <div className="Login__image"  title="Login_Image">
         <img src={login} alt="Login svg" />
       </div>
     </div>

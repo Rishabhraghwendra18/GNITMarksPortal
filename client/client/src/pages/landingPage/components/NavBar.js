@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <nav title="NavBar">
-      <img src={logo} alt="Logo" />
+      <img src={logo} alt="Logo" title="navbar_logo"/>
       <div>
-        <Link to="/studentdashboard">
+        <a href="#" title="home_anchor_tag">Home</a>
+        {/* <Link to="/studentdashboard">
           Home
-        </Link>
-        <a href="#">Login</a>
-        <a href="#">Contact Us</a>
+        </Link> */}
+        <a href="#" title="login_anchor_tag">Login</a>
+        <a href="#" title="contact_anchor_tag">Contact Us</a>
       </div>
     </nav>
   );
