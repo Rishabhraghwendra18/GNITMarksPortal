@@ -3,7 +3,7 @@ import myPic from "../../../assets/my-pic.jpg";
 
 function MyProfile() {
   return (
-    <div className="Profile flex__container">
+    <div className="Profile flex__container" title="Profile">
           <h3>Developed By</h3>
       <div className="Profile__mine flex__container">
         <div className="about__me flex__container">

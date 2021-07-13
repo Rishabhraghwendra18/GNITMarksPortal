@@ -6,7 +6,7 @@ import MyProfile from "./landingPage/components/MyProfile";
 
 function Home() {
   return (
-    <div className="Home">
+    <div className="Home" title="Home">
       <Hero />
       <Toppers />
       <Login />

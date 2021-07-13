@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <NavBar />
+      <NavBar/>
         <Switch>
           <Route path="/admin/dashboard" component={Admin}/>
           <Route path="/teacher/dashboard" component={Teachers}>

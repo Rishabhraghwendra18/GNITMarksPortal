@@ -3,7 +3,7 @@ import login from "../../../assets/login.svg";
 
 function Login() {
   return (
-    <div className="Login flex__container">
+    <div className="Login flex__container" title="Login">
       <div className="Login__box flex__container">
         <span>LOGIN</span>
         <span className="horizontal__line"></span>
