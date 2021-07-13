@@ -1,4 +1,4 @@
-import { render, fireEvent, queryByTitle } from "@testing-library/react";
+import { render} from "@testing-library/react";
 import App from "../pages/App";
 import Home from "../pages/Home";
 import Hero from "../pages/landingPage/components/Hero";
