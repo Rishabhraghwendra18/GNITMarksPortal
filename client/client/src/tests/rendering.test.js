@@ -40,7 +40,7 @@ describe("are Landing page components rendering", () => {
   });
 });
 
-describe("is elements in each component rendering", () => {
+describe("are elements in each component rendering", () => {
   it("is Hero rendering quote & img", () => {
     const { queryByTitle } = render(<Hero />);
     const heroQuote = queryByTitle("Hero_Quote");
