@@ -11,10 +11,10 @@ function App() {
       <BrowserRouter>
       <NavBar />
         <Switch>
-          <Route path="/admindashboard" component={Admin}/>
-          <Route path="/teacherdashboard" component={Teachers}>
+          <Route path="/admin/dashboard" component={Admin}/>
+          <Route path="/teacher/dashboard" component={Teachers}>
           </Route>
-          <Route path="/studentdashboard" component={StudentDashboard}>
+          <Route path="/student/dashboard" component={StudentDashboard}>
           </Route>
           <Route path="/" component={Home}>
           </Route>
