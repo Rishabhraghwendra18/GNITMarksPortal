@@ -1,7 +1,11 @@
-import React from "react";
+import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import login from "../../../assets/login.svg";
 
 function Login() {
+  const roles=["Student","Teacher","Admin"];
+  const [route,setRoute]=useState("/");
+  const routing=useHistory();
   return (
     <div className="Login flex__container" title="Login">
       <div className="Login__box flex__container" title="Login_Box">
@@ -17,21 +21,17 @@ function Login() {
         </div>
         <div className="role__field">
           <span>Who you are ?</span>
-          <div id="admin">
-            <input type="checkbox" name="Admin" />
-            <span>Admin</span>
-          </div>
-          <div id="teacher">
-            <input type="checkbox" name="Teacher" />
-            <span>Teacher</span>
-          </div>
-          <div id="student">
-          <input type="checkbox" name="Student" />
-          <span>Student</span>
-          </div>
+         {roles.map((e,index)=>{
+           return (
+            <div id={e} key={index}>
+              <input type="checkbox" name={e} key={index} onClick={()=>setRoute(e)}/>
+              <span key={index}>{e}</span>
+            </div>
+           );
+         })}
         </div>
         <div className="Login__button flex__container">
-          <button type="submit">Login</button>
+          <button type="submit" onClick={()=>routing.push(`${route}/dashboard`)}>Login</button>
         </div>
       </div>
       <div className="Login__image"  title="Login_Image">
