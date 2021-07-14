@@ -54,10 +54,9 @@ function Login({ setUserLoginCredentials }) {
                 <input
                   type="checkbox"
                   name={e}
-                  key={index}
                   onClick={() => setRoute(e)}
                 />
-                <span key={index}>{e}</span>
+                <span>{e}</span>
               </div>
             );
           })}
