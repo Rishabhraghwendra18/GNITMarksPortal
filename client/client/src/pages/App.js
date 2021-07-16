@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import StudentDashboard from "./authPages/StudentDashboard";
@@ -17,12 +17,12 @@ function App() {
         <NavBar />
         <userLoginCredentialsContext.Provider value={userLoginCredentials}>
           <Switch>
-            <Route path="/admin/dashboard" component={Admin} />
-            <Route path="/teacher/dashboard" component={Teachers}></Route>
-            <Route
+            {userLoginCredentials && userLoginCredentials.route=="Admin"?<Route path="/admin/dashboard" component={Admin} />:0}
+            {userLoginCredentials && userLoginCredentials.route=="Teacher"?<Route path="/teacher/dashboard" component={Teachers}></Route>:0}
+            {userLoginCredentials && userLoginCredentials.route=="Student"?<Route
               path="/student/dashboard"
               component={StudentDashboard}
-            ></Route>
+            />:0}
             <setUserLoginCredentialsContext.Provider value={setUserLoginCredentials}>
               <Route path="/" component={Home}></Route>
             </setUserLoginCredentialsContext.Provider>

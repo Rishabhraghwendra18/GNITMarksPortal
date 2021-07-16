@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
+import axios from "axios";
 import login from "../../../assets/login.svg";
 
 function Login({ setUserLoginCredentials }) {
@@ -24,6 +25,23 @@ function Login({ setUserLoginCredentials }) {
       },
     },
   ];
+  async function queryLogin(credentials) {
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(credentials),
+    };
+    try {
+      const response = await fetch(`http://localhost:5000/${route}/dashboard`,params)
+      const responeJson=await response.json();
+      setUserLoginCredentials({route,body:responeJson});
+    } catch (error) {
+      routing.push('/');
+    }
+  }
   return (
     <div className="Login flex__container" title="Login">
       <div className="Login__box flex__container" title="Login_Box">
@@ -51,11 +69,7 @@ function Login({ setUserLoginCredentials }) {
           {roles.map((e, index) => {
             return (
               <div id={e} key={index}>
-                <input
-                  type="checkbox"
-                  name={e}
-                  onClick={() => setRoute(e)}
-                />
+                <input type="checkbox" name={e} onClick={() => setRoute(e)} />
                 <span>{e}</span>
               </div>
             );
@@ -72,11 +86,10 @@ function Login({ setUserLoginCredentials }) {
                 console.log("can't login");
                 return;
               }
-              setUserLoginCredentials({
-                userName,
-                userPassword,
+              queryLogin({
+                id:userName,
+                password:userPassword,
               });
-              console.log("setted context")
               routing.push(`${route}/dashboard`);
             }}
           >

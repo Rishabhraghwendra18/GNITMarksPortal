@@ -1,6 +1,11 @@
-import React from "react";
+import React,{useContext,useEffect} from "react";
+import {userLoginCredentialsContext}from "../App";
 
 function StudentDashboard() {
+  const userLoginCredentials=useContext(userLoginCredentialsContext);
+  useEffect(() => {
+    console.log("hi:",userLoginCredentials)
+  }, []);
   return (
     <div className="StudentDashBoard flex__container">
       <div className="StudentDashBoard__marksDiv">
