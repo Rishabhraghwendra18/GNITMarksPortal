@@ -3,7 +3,7 @@ const router = express.Router();
 const authRole = require("../middlewares/permissonMiddlewares/authRole");
 const { addUser,selectAllUsers } = require("../database/fetchUsersFromDB");
 
-router.get("/dashboard", authRole("ADMIN"), (req, res) => {
+router.post("/dashboard", authRole("ADMIN"), (req, res) => {
   if(!req.query){
     res.status(400);
     res.json({error:"Missing query parameter"});
