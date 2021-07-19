@@ -35,18 +35,23 @@ function StudentDashboard() {
             </Tr>
           </Thead>
           <Tbody>
-            {Object.entries(userLoginCredentials.body).map((e) => {
-              if (e[0] != "id") {
-                const subjects=e[0].split('_');
-                console.log("arrays: ",e)
-                return (
-                  <Tr>
-                    <Td>{subjects.map(e=>e.charAt(0).toUpperCase()+e.slice(1)+' ')}</Td>
-                    <Td>{e[1]?e[1]:"null"}</Td>
-                  </Tr>
-                );
+            {Object.entries(userLoginCredentials.body).map(
+              ([subject, marks]) => {
+                if (subject != "id") {
+                  const pretifiedSubjects = subject.split("_");
+                  return (
+                    <Tr>
+                      <Td>
+                        {pretifiedSubjects.map(
+                          (e) => e.charAt(0).toUpperCase() + e.slice(1) + " "
+                        )}
+                      </Td>
+                      <Td>{marks ? marks : "null"}</Td>
+                    </Tr>
+                  );
+                }
               }
-            })}
+            )}
           </Tbody>
         </Table>
       </div>
