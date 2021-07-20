@@ -57,14 +57,14 @@ describe("1st test", () => {
     });
   });
   it("A Admin", async () => {
-    const res = await getRequest(
+    const res = await postRequest(
       "/admin/dashboard?category=student&semester=sem1",
       adminLoginCredentials
     );
     expect(res.statusCode).toBe(200);
   });
   it("GET admin/Dashboard . Before any user in db ", async () => {
-    const res = await getRequest("/admin/dashboard", adminLoginCredentials);
+    const res = await postRequest("/admin/dashboard", adminLoginCredentials);
     expect(res.body).toEqual({ students: [], teachers: [] });
   });
   it("POST admin/adduser . Add students", () => {
@@ -166,7 +166,7 @@ describe("1st test", () => {
         subject: "applied_mathematics",
       },
     ];
-    const res = await getRequest(
+    const res = await postRequest(
       "/admin/dashboard?semester=sem1",
       adminLoginCredentials
     );
@@ -178,7 +178,7 @@ describe("1st test", () => {
     });
   });
   it("Logining as admin in teachers id . GET /teacher/dashboard", async () => {
-    const res = await getRequest("/teacher/dashboard", adminLoginCredentials);
+    const res = await postRequest("/teacher/dashboard", adminLoginCredentials);
     const expectedResponse = {
       auth: "you are not allowed",
     };
@@ -189,7 +189,7 @@ describe("1st test", () => {
       id:"IPUTEST779",
       password: "IPUSTeacher",
     };
-    const res = await getRequest("/teacher/dashboard", teacherLoginCredentials);
+    const res = await postRequest("/teacher/dashboard", teacherLoginCredentials);
     const dbData = await db.selectAllStudents("sem1");
     expect(res.body).toMatchObject(dbData);
   });
@@ -229,7 +229,7 @@ describe("1st test", () => {
       id: "IPUTEST778",
       password: "IPUSTUD",
     };
-    const res = await getRequest("/student/dashboard", studentLoginCredentials);
+    const res = await postRequest("/student/dashboard", studentLoginCredentials);
     const dbData = await db.getStudent({semester:"sem1",id:"IPUTEST778"});
     expect(res.body).toMatchObject(dbData);
   });

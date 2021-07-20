@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index",
     "dev": "nodemon ./src/developmentServer/server.js",
-    "test": "node -r dotenv/config $(which jest) --watchAll --detectOpenHandles --testTimeout=10000"
+    "test": "./node_modules/.bin/jest --watchAll --setupFiles dotenv/config --detectOpenHandles --testTimeout=10000"
   },
   "author": "Rishabh Raghwendra",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "setupFiles": ["dotenv/config"]
   }
 }
