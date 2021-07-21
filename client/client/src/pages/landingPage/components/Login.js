@@ -37,7 +37,7 @@ function Login({ setUserLoginCredentials }) {
     try {
       const response = await fetch(`http://localhost:5000/${route}/dashboard`,params)
       const responeJson=await response.json();
-      setUserLoginCredentials({route,body:responeJson});
+      setUserLoginCredentials({route,body:responeJson,id:credentials.id,password:credentials.password});
     } catch (error) {
       routing.push('/');
     }

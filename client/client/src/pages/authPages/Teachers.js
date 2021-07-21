@@ -9,7 +9,7 @@ function Teachers({match}) {
       return (
             <BrowserRouter>
             <Switch>
-                  <Route path="/uploadmarks" component={UploadMarks}/>
+                  <Route path="/teacher/uploadmarks" component={UploadMarks}/>
                   <Route path="/" component={TeachersDashboard}/>
             </Switch>
             </BrowserRouter>

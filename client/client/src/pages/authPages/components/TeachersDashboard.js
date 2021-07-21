@@ -7,7 +7,7 @@ function TeachersDashboard() {
   const userLoginCredentials = useContext(userLoginCredentialsContext);
   return (
     <div className="TeachersDashboard flex__container">
-      <Link to={"/uploadmarks"}>
+      <Link to={"/teacher/uploadmarks"}>
         <button className="uploadButton">Upload Marks</button>
       </Link>
       <div className="dashboard">
