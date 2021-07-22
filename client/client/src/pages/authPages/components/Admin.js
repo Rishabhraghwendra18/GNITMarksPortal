@@ -1,5 +1,5 @@
-import React from "react";
-import {  Link } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Tabs,
   TabList,
@@ -12,6 +12,21 @@ import {
 import DataShowingTable from "./DataShowingTable";
 
 function AdminDashboard() {
+  const student = useRef(null);
+
+  const tabLists = [
+    "sem1",
+    "sem2",
+    "sem3",
+    "sem4",
+    "sem5",
+    "sem6",
+    "sem7",
+    "sem8",
+  ];
+  useEffect(() => {
+    student.current.focus();
+  }, []);
   return (
     <div className="AdminDashboard flex__container">
       <Link to="/accountsignup">
@@ -21,6 +36,7 @@ function AdminDashboard() {
         <div className="teacher__student">
           <Stack spacing={4} direction="column" align="center">
             <Button
+              ref={student}
               colorScheme="blue"
               variant="outline"
               isFullWidth
@@ -41,16 +57,16 @@ function AdminDashboard() {
         <div className="data">
           <Tabs variant="enclosed">
             <TabList>
-              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Subject 1</Tab>
-              <Tab _selected={{ color: "white", bg: "#265FAE" }}>Subject 2</Tab>
+              {tabLists.map((e) => (
+                <Tab _selected={{ color: "white", bg: "#265FAE" }}>{e}</Tab>
+              ))}
             </TabList>
             <TabPanels>
-              <TabPanel>
-                <DataShowingTable />
-              </TabPanel>
-              <TabPanel>
-                <DataShowingTable />
-              </TabPanel>
+              {tabLists.map(() => (
+                <TabPanel>
+                  <DataShowingTable />
+                </TabPanel>
+              ))}
             </TabPanels>
           </Tabs>
         </div>
