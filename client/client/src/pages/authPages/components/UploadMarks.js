@@ -20,9 +20,9 @@ import {
 import { userLoginCredentialsContext } from "../../App";
 
 function UploadMarks() {
-  const [studentName, setStudentName] = useState();
-  const [studentID, setStudentID] = useState();
-  const [studentMarks, setStudentMarks] = useState();
+  const [studentName, setStudentName] = useState('');
+  const [studentID, setStudentID] = useState('');
+  const [studentMarks, setStudentMarks] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isSuccessfulAndMessage,setIsSuccessfulAndMessage]=useState();
   const cancelRef = useRef();
@@ -75,7 +75,7 @@ function UploadMarks() {
             <AlertDialogBody>
               <Alert status={isSuccessfulAndMessage?.status==200?'success':'error'}>
                 <AlertIcon />
-                {isSuccessfulAndMessage?.status==200?'Marks Uploaded':`Error: ${isSuccessfulAndMessage.description}`}
+                {isSuccessfulAndMessage?.status==200?'Marks Uploaded':`Error: ${isSuccessfulAndMessage?.description}`}
               </Alert>
             </AlertDialogBody>
             <AlertDialogFooter>
@@ -94,7 +94,7 @@ function UploadMarks() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
-              defaultValue={studentName?'':''}
+              value={studentName}
               onChange={(e) => setStudentName(e.target.value)}
             ></Input>
           </HStack>
@@ -106,7 +106,7 @@ function UploadMarks() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
-              defaultValue={studentID}
+              value={studentID}
               onChange={(e) => setStudentID(e.target.value)}
             ></Input>
           </HStack>
@@ -116,7 +116,7 @@ function UploadMarks() {
               type="number"
               border="6px solid black"
               boxSizing="border-box"
-              defaultValue={studentMarks}
+              value={studentMarks}
               onChange={(e) => setStudentMarks(e.target.value)}
             ></Input>
           </HStack>
@@ -151,9 +151,9 @@ function UploadMarks() {
               colorScheme="red"
               fontSize="1.5rem"
               onClick={()=>{
-                setStudentName(null);
-                setStudentMarks(null);
-                setStudentID(null);
+                setStudentName('');
+                setStudentMarks('');
+                setStudentID('');
               }}
             >
               Cancel
