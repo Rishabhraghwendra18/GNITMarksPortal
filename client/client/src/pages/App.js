@@ -17,13 +17,39 @@ function App() {
         <NavBar />
         <userLoginCredentialsContext.Provider value={userLoginCredentials}>
           <Switch>
-            {userLoginCredentials && userLoginCredentials.route=="Admin"?<Route path="/admin/dashboard" component={Admin} />:0}
-            {userLoginCredentials && userLoginCredentials.route=="Teacher"?<Route path="/teacher/dashboard" component={Teachers}></Route>:0}
-            {userLoginCredentials && userLoginCredentials.route=="Student"?<Route
-              path="/student/dashboard"
-              component={StudentDashboard}
-            />:0}
-            <setUserLoginCredentialsContext.Provider value={setUserLoginCredentials}>
+            {userLoginCredentials &&
+            userLoginCredentials.route == "Admin" &&
+            (userLoginCredentials.isUser === undefined ||
+            userLoginCredentials.isUser === true
+              ? true
+              : false) ? (
+              <Route path="/admin/dashboard" component={Admin} />
+            ) : (
+              0
+            )}
+            {userLoginCredentials &&
+            userLoginCredentials.route == "Teacher" &&
+            (userLoginCredentials.isUser === undefined ||
+            userLoginCredentials.isUser === true
+              ? true
+              : false) ? (
+              <Route path="/teacher/dashboard" component={Teachers}></Route>
+            ) : (
+              0
+            )}
+            {userLoginCredentials &&
+            userLoginCredentials.route == "Student" &&
+            (userLoginCredentials.isUser === undefined ||
+            userLoginCredentials.isUser === true
+              ? true
+              : false) ? (
+              <Route path="/student/dashboard" component={StudentDashboard} />
+            ) : (
+              0
+            )}
+            <setUserLoginCredentialsContext.Provider
+              value={setUserLoginCredentials}
+            >
               <Route path="/" component={Home}></Route>
             </setUserLoginCredentialsContext.Provider>
           </Switch>

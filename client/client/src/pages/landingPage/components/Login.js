@@ -30,16 +30,25 @@ function Login({ setUserLoginCredentials }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Accept': "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(credentials),
     };
     try {
-      const response = await fetch(`http://localhost:5000/${route}/dashboard`,params)
-      const responeJson=await response.json();
-      setUserLoginCredentials({route,body:responeJson,id:credentials.id,password:credentials.password});
+      const response = await fetch(
+        `http://localhost:5000/${route}/dashboard`,
+        params
+      );
+      const responeJson = await response.json();
+      setUserLoginCredentials({
+        route,
+        body: responeJson,
+        id: credentials.id,
+        password: credentials.password,
+      });
+      console.log("response is: ", responeJson);
     } catch (error) {
-      routing.push('/');
+      routing.push("/");
     }
   }
   return (
@@ -87,8 +96,8 @@ function Login({ setUserLoginCredentials }) {
                 return;
               }
               queryLogin({
-                id:userName,
-                password:userPassword,
+                id: userName,
+                password: userPassword,
               });
               routing.push(`${route}/dashboard`);
             }}

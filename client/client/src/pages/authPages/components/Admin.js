@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Tabs,
@@ -10,10 +10,11 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import DataShowingTable from "./DataShowingTable";
+import {userLoginCredentialsContext} from "../../App";
 
 function AdminDashboard() {
   const student = useRef(null);
-
+  const userLoginCredentials=useContext(userLoginCredentialsContext);
   const tabLists = [
     "sem1",
     "sem2",
@@ -49,6 +50,7 @@ function AdminDashboard() {
               variant="outline"
               isFullWidth
               _focus={{ color: "white", bg: "#265FAE" }}
+              onClick={()=>console.log('userlogin: ',userLoginCredentials)}
             >
               Teachers
             </Button>
