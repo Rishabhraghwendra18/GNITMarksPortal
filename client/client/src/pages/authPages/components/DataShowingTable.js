@@ -9,29 +9,28 @@ import {
   TableCaption,
 } from "@chakra-ui/react";
 
-function DataShowingTable() {
+function DataShowingTable({ data }) {
   return (
     <div>
       <Table colorScheme="black" size="lg">
         <Thead>
           <Tr>
-            <Th>Student Name</Th>
-            <Th>Subject1 Marks</Th>
+            {data?.tableHeader.map((e, index) => (
+              <Th key={index}>{e}</Th>
+            ))}
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>ABC</Td>
-            <Td>55</Td>
+          {data?.type.map((e, index) =>data?.tableHeader.length==3?(<Tr key={index}>
+            <Td>{e.name}</Td>
+            <Td>{e.branch}</Td>
+            <Td>{e.marks}</Td>
+          </Tr>):(
+            <Tr>
+            <Td>{e.name}</Td>
+            <Td>{e.subject}</Td>
           </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>0.91444</Td>
-          </Tr>
+          ))}
         </Tbody>
       </Table>
     </div>

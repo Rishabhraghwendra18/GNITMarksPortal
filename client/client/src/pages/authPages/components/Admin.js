@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react";
+import React, { useRef, useEffect, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Tabs,
@@ -10,11 +10,14 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import DataShowingTable from "./DataShowingTable";
-import {userLoginCredentialsContext} from "../../App";
+import { userLoginCredentialsContext } from "../../App";
 
 function AdminDashboard() {
   const student = useRef(null);
-  const userLoginCredentials=useContext(userLoginCredentialsContext);
+  const [semester, setSemester] = useState("sem1");
+  const [tableHeader, setTableHeader] = useState(["Students Name", "Branch","Marks"]);
+  const [dataObject, setDataObject] = useState();
+  const userLoginCredentials = useContext(userLoginCredentialsContext);
   const tabLists = [
     "sem1",
     "sem2",
@@ -25,6 +28,39 @@ function AdminDashboard() {
     "sem7",
     "sem8",
   ];
+  async function fetchRecords() {
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        id: userLoginCredentials.id,
+        password: userLoginCredentials.password,
+      }),
+    };
+    try {
+      console.log("params is: ", params);
+      const response = await fetch(
+        `http://localhost:5000/admin/dashboard?semester=${semester}`,
+        params
+      );
+      const responeJson = await response.json();
+      return Promise.resolve(responeJson);
+    } catch (error) {
+      console.log("error in admin: ", error);
+    }
+  }
+
+  useEffect(async () => {
+    const responseJson = await fetchRecords();
+    console.log("before setting dataObject: ", tableHeader);
+    if (tableHeader[0] === "Students Name")
+      setDataObject({ tableHeader, type: responseJson.students });
+    else setDataObject({ tableHeader, type: responseJson.teachers });
+    console.log(" after updating dataObject:", dataObject);
+  }, [semester, tableHeader]);
   useEffect(() => {
     student.current.focus();
   }, []);
@@ -42,6 +78,7 @@ function AdminDashboard() {
               variant="outline"
               isFullWidth
               _focus={{ color: "white", bg: "#265FAE" }}
+              onClick={() => setTableHeader(["Students Name", "Branch","Marks"])}
             >
               Students
             </Button>
@@ -50,7 +87,7 @@ function AdminDashboard() {
               variant="outline"
               isFullWidth
               _focus={{ color: "white", bg: "#265FAE" }}
-              onClick={()=>console.log('userlogin: ',userLoginCredentials)}
+              onClick={() => setTableHeader(["Teachers Name", "Subject"])}
             >
               Teachers
             </Button>
@@ -59,14 +96,22 @@ function AdminDashboard() {
         <div className="data">
           <Tabs variant="enclosed">
             <TabList>
-              {tabLists.map((e) => (
-                <Tab _selected={{ color: "white", bg: "#265FAE" }}>{e}</Tab>
+              {tabLists.map((e, index) => (
+                <Tab
+                  key={index}
+                  _selected={{ color: "white", bg: "#265FAE" }}
+                  onClick={(e) => {
+                    setSemester(e.target.innerHTML);
+                  }}
+                >
+                  {e}
+                </Tab>
               ))}
             </TabList>
             <TabPanels>
               {tabLists.map(() => (
                 <TabPanel>
-                  <DataShowingTable />
+                  <DataShowingTable data={dataObject}/>
                 </TabPanel>
               ))}
             </TabPanels>
