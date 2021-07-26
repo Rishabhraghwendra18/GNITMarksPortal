@@ -15,7 +15,11 @@ import { userLoginCredentialsContext } from "../../App";
 function AdminDashboard() {
   const student = useRef(null);
   const [semester, setSemester] = useState("sem1");
-  const [tableHeader, setTableHeader] = useState(["Students Name", "Branch","Marks"]);
+  const [tableHeader, setTableHeader] = useState([
+    "Students Name",
+    "Branch",
+    "Marks",
+  ]);
   const [dataObject, setDataObject] = useState();
   const userLoginCredentials = useContext(userLoginCredentialsContext);
   const tabLists = [
@@ -78,7 +82,9 @@ function AdminDashboard() {
               variant="outline"
               isFullWidth
               _focus={{ color: "white", bg: "#265FAE" }}
-              onClick={() => setTableHeader(["Students Name", "Branch","Marks"])}
+              onClick={() =>
+                setTableHeader(["Students Name", "Branch", "Marks"])
+              }
             >
               Students
             </Button>
@@ -111,7 +117,7 @@ function AdminDashboard() {
             <TabPanels>
               {tabLists.map(() => (
                 <TabPanel>
-                  <DataShowingTable data={dataObject}/>
+                  <DataShowingTable data={dataObject} />
                 </TabPanel>
               ))}
             </TabPanels>

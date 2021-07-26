@@ -21,16 +21,20 @@ function DataShowingTable({ data }) {
           </Tr>
         </Thead>
         <Tbody>
-          {data?.type.map((e, index) =>data?.tableHeader.length==3?(<Tr key={index}>
-            <Td>{e.name}</Td>
-            <Td>{e.branch}</Td>
-            <Td>{e.marks}</Td>
-          </Tr>):(
-            <Tr>
-            <Td>{e.name}</Td>
-            <Td>{e.subject}</Td>
-          </Tr>
-          ))}
+          {data?.type.map((e, index) =>
+            data?.tableHeader.length == 3 ? (
+              <Tr key={index}>
+                <Td>{e.name}</Td>
+                <Td>{e.branch}</Td>
+                <Td>{e.marks}</Td>
+              </Tr>
+            ) : (
+              <Tr>
+                <Td>{e.name}</Td>
+                <Td>{e.subject}</Td>
+              </Tr>
+            )
+          )}
         </Tbody>
       </Table>
     </div>
