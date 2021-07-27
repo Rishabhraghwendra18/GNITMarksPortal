@@ -1,4 +1,4 @@
-const semestersAndSubjects = [
+export const semestersAndSubjects = [
   {
     semester: "sem1",
     subjects: [
@@ -84,4 +84,4 @@ const semestersAndSubjects = [
     ],
   },
 ];
-export default semestersAndSubjects;
+export const branches=["CSE","IT","ECE","ME"];

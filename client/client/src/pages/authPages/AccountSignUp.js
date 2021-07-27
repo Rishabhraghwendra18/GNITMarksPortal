@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import semestersAndSubjects from "./dataForPages";
+import {semestersAndSubjects,branches} from "./dataForPages";
 import {
   Button,
   Select,
@@ -90,9 +90,7 @@ function AccountSignUp() {
               boxSizing="border-box"
               isDisabled={!isStudent}
             >
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              {branches.map((e,index)=><option key={index}value={e}>{e}</option>)}
             </Select>
           </HStack>
           <Stack spacing="23px" marginBottom="1rem" direction="row">
