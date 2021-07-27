@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { semestersAndSubjects, branches } from "./dataForPages";
 import {
   Button,
@@ -20,12 +20,22 @@ function AccountSignUp() {
   const [userSemester, setUserSemester] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
   const [userBranchOrSubject, setUserBranchOrSubject] = useState(null);
-  const allUserInputFields = [
+  const [isChecked,setIsChecked]=useState([false,false]);
+  const studentCheckbox = useRef();
+  const teacherCheckbox = useRef();
+  const allUserInputFieldsValues = [
     userName,
     userID,
     userSemester,
     userBranchOrSubject,
     userPassword,
+  ];
+  const allUserInputFieldStateHooks = [
+    setUserName,
+    setUserId,
+    setUserSemester,
+    setUserPassword,
+    setUserBranchOrSubject,
   ];
   const userLoginCredentials = useContext(userLoginCredentialsContext);
 
@@ -65,6 +75,7 @@ function AccountSignUp() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
+              value={userID}
               onChange={(e) => setUserId(e.target.value)}
             ></Input>
           </HStack>
@@ -74,6 +85,7 @@ function AccountSignUp() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
+              value={userName}
               onChange={(e) => setUserName(e.target.value)}
             ></Input>
           </HStack>
@@ -85,6 +97,7 @@ function AccountSignUp() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
+              value={userPassword}
               onChange={(e) => setUserPassword(e.target.value)}
             ></Input>
           </HStack>
@@ -117,14 +130,22 @@ function AccountSignUp() {
             padding="1rem"
           >
             <Checkbox
+              ref={studentCheckbox}
               size="lg"
+              isChecked={isChecked[0]}
               onChange={() => {
                 setIsStudent(true);
+                setIsChecked([true,false]);
               }}
             >
               Student
             </Checkbox>
-            <Checkbox size="lg" onChange={() => setIsStudent(false)}>
+            <Checkbox
+              ref={teacherCheckbox}
+              size="lg"
+              isChecked={isChecked[1]}
+              onChange={() => {setIsStudent(false);setIsChecked([false,true]);}}
+            >
               Teacher
             </Checkbox>
           </Stack>
@@ -176,7 +197,9 @@ function AccountSignUp() {
               colorScheme="blue"
               fontSize="1.5rem"
               onClick={() => {
-                if (!allUserInputFields.filter((e) => !e || e === "")) {
+                if (
+                  allUserInputFieldsValues.filter((e) => !e || e === "").length
+                ) {
                   alert("Please fill all the fields");
                   return;
                 }
@@ -198,6 +221,11 @@ function AccountSignUp() {
               loadingText="Submitting"
               colorScheme="red"
               fontSize="1.5rem"
+              onClick={() => {
+                allUserInputFieldStateHooks.map((e) => e(""));
+                setIsChecked([false,false]);
+                console.log("isChecked: ",isChecked)
+              }}
             >
               Cancel
             </Button>
