@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import {semestersAndSubjects,branches} from "./dataForPages";
+import React, { useState,useContext } from "react";
+import { semestersAndSubjects, branches } from "./dataForPages";
 import {
   Button,
   Select,
@@ -10,22 +10,53 @@ import {
   HStack,
   Stack,
 } from "@chakra-ui/react";
+import { userLoginCredentialsContext } from "../App";
 
 function AccountSignUp() {
-  const [isStudent,setIsStudent]=useState(null);
-  const [semesterIndex,setSemesterIndex]=useState();
+  const [isStudent, setIsStudent] = useState(null);
+  const [semesterIndex, setSemesterIndex] = useState();
+  const [userName, setUserName] = useState(null);
+  const [userID, setUserId] = useState(null);
+  const [userSemester, setUserSemester] = useState(null);
+  const [userPassword, setUserPassword] = useState(null);
+  const [userBranchOrSubject, setUserBranchOrSubject] = useState(null);
+  const allUserInputFields = [
+    userName,
+    userID,
+    userSemester,
+    userBranchOrSubject,
+    userPassword,
+  ];
+  const userLoginCredentials = useContext(userLoginCredentialsContext);
+
+  async function createUserAccount(userObject) {
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        id: userLoginCredentials.id,
+        password: userLoginCredentials.password,
+        user: userObject,
+      }),
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5000/admin/adduser",
+        params
+      );
+      const responeJson = await response.json();
+      console.log("response on creating account: ", responeJson);
+    } catch (error) {
+      console.log("error in creating account: ", error);
+    }
+  }
   return (
     <div className="AccountSignUp flex__container">
       <div className="Form">
         <FormControl width="50%">
-          <HStack spacing="24px" marginBottom="1rem">
-            <FormLabel fontSize="1.5rem">Name</FormLabel>
-            <Input
-              type="text"
-              border="6px solid black"
-              boxSizing="border-box"
-            ></Input>
-          </HStack>
           <HStack spacing="45px" marginBottom="1rem">
             <FormLabel fontSize="1.5rem" boxSizing="border-box">
               ID
@@ -34,6 +65,27 @@ function AccountSignUp() {
               type="text"
               border="6px solid black"
               boxSizing="border-box"
+              onChange={(e) => setUserId(e.target.value)}
+            ></Input>
+          </HStack>
+          <HStack spacing="24px" marginBottom="1rem">
+            <FormLabel fontSize="1.5rem">Name</FormLabel>
+            <Input
+              type="text"
+              border="6px solid black"
+              boxSizing="border-box"
+              onChange={(e) => setUserName(e.target.value)}
+            ></Input>
+          </HStack>
+          <HStack spacing="45px" marginBottom="1rem">
+            <FormLabel fontSize="1.5rem" boxSizing="border-box">
+              User Password
+            </FormLabel>
+            <Input
+              type="text"
+              border="6px solid black"
+              boxSizing="border-box"
+              onChange={(e) => setUserPassword(e.target.value)}
             ></Input>
           </HStack>
           <HStack spacing="45px" marginBottom="1rem">
@@ -45,13 +97,18 @@ function AccountSignUp() {
               size="lg"
               border="6px solid black"
               boxSizing="border-box"
-              onChange={e=>setSemesterIndex(e.target.value)}
+              onChange={(e) => {
+                setSemesterIndex(e.target.value);
+                setUserSemester(semestersAndSubjects[e.target.value].semester);
+              }}
             >
-             {
-               semestersAndSubjects.map((e,index)=><option key={index}value={index}>{e.semester}</option>)
-             }
+              {semestersAndSubjects.map((e, index) => (
+                <option key={index} value={index}>
+                  {e.semester}
+                </option>
+              ))}
             </Select>
-          </HStack>          
+          </HStack>
           <FormLabel fontSize="1.7rem">Role:</FormLabel>
           <Stack
             spacing="23px"
@@ -59,10 +116,18 @@ function AccountSignUp() {
             direction="column"
             padding="1rem"
           >
-            <Checkbox size="lg" onChange={()=>{setIsStudent(true)}}>Student</Checkbox>
-            <Checkbox size="lg"onChange={()=>setIsStudent(false)}>Teacher</Checkbox>
+            <Checkbox
+              size="lg"
+              onChange={() => {
+                setIsStudent(true);
+              }}
+            >
+              Student
+            </Checkbox>
+            <Checkbox size="lg" onChange={() => setIsStudent(false)}>
+              Teacher
+            </Checkbox>
           </Stack>
-          <FormLabel fontSize="1.7rem">If a teacher:</FormLabel>
           <Stack spacing="23px" marginBottom="1rem" direction="row">
             <FormLabel fontSize="1.5rem" boxSizing="border-box">
               Subject
@@ -73,10 +138,15 @@ function AccountSignUp() {
               border="6px solid black"
               boxSizing="border-box"
               isDisabled={isStudent}
+              onChange={(e) =>
+                setUserBranchOrSubject(["subject", e.target.value])
+              }
             >
-             {
-               semestersAndSubjects[semesterIndex]?.subjects.map((e,index)=><option key={index}value={e}>{e}</option>)
-             }
+              {semestersAndSubjects[semesterIndex]?.subjects.map((e, index) => (
+                <option key={index} value={e}>
+                  {e}
+                </option>
+              ))}
             </Select>
           </Stack>
           <HStack spacing="45px" marginBottom="1rem">
@@ -89,8 +159,15 @@ function AccountSignUp() {
               border="6px solid black"
               boxSizing="border-box"
               isDisabled={!isStudent}
+              onChange={(e) =>
+                setUserBranchOrSubject(["branch", e.target.value])
+              }
             >
-              {branches.map((e,index)=><option key={index}value={e}>{e}</option>)}
+              {branches.map((e, index) => (
+                <option key={index} value={e}>
+                  {e}
+                </option>
+              ))}
             </Select>
           </HStack>
           <Stack spacing="23px" marginBottom="1rem" direction="row">
@@ -98,7 +175,22 @@ function AccountSignUp() {
               loadingText="Submitting"
               colorScheme="blue"
               fontSize="1.5rem"
-              onClick={()=>console.log("semester is: ",semesterIndex)}
+              onClick={() => {
+                if (!allUserInputFields.filter((e) => !e || e === "")) {
+                  alert("Please fill all the fields");
+                  return;
+                }
+                const userObject = {
+                  id: userID,
+                  name: userName,
+                  [userBranchOrSubject[0]]: userBranchOrSubject[1],
+                  role: isStudent ? "student" : "teacher",
+                  password: userPassword,
+                  [userSemester]: true,
+                };
+                createUserAccount(userObject);
+                console.log("userobject: ", userObject);
+              }}
             >
               Create Account
             </Button>
