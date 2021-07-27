@@ -20,9 +20,10 @@ function AccountSignUp() {
   const [userSemester, setUserSemester] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
   const [userBranchOrSubject, setUserBranchOrSubject] = useState(null);
-  const [isChecked,setIsChecked]=useState([false,false]);
-  const studentCheckbox = useRef();
-  const teacherCheckbox = useRef();
+  const [isChecked, setIsChecked] = useState([false, false]);
+  const subjectRef=useRef();
+  const branchRef=useRef();
+  const dropDowns = [subjectRef,branchRef];
   const allUserInputFieldsValues = [
     userName,
     userID,
@@ -130,21 +131,22 @@ function AccountSignUp() {
             padding="1rem"
           >
             <Checkbox
-              ref={studentCheckbox}
               size="lg"
               isChecked={isChecked[0]}
               onChange={() => {
                 setIsStudent(true);
-                setIsChecked([true,false]);
+                setIsChecked([true, false]);
               }}
             >
               Student
             </Checkbox>
             <Checkbox
-              ref={teacherCheckbox}
               size="lg"
               isChecked={isChecked[1]}
-              onChange={() => {setIsStudent(false);setIsChecked([false,true]);}}
+              onChange={() => {
+                setIsStudent(false);
+                setIsChecked([false, true]);
+              }}
             >
               Teacher
             </Checkbox>
@@ -154,6 +156,7 @@ function AccountSignUp() {
               Subject
             </FormLabel>
             <Select
+              ref={subjectRef}
               placeholder="Select Subject"
               size="lg"
               border="6px solid black"
@@ -175,6 +178,7 @@ function AccountSignUp() {
               Branch
             </FormLabel>
             <Select
+              ref={branchRef}
               placeholder="Select Branch"
               size="lg"
               border="6px solid black"
@@ -223,8 +227,8 @@ function AccountSignUp() {
               fontSize="1.5rem"
               onClick={() => {
                 allUserInputFieldStateHooks.map((e) => e(""));
-                setIsChecked([false,false]);
-                console.log("isChecked: ",isChecked)
+                setIsChecked([false, false]);
+                dropDowns.map(e=>e.current.options.selectedIndex = 0)
               }}
             >
               Cancel
