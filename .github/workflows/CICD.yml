@@ -18,6 +18,7 @@ jobs:
       working-directory: ./client
       run: npm install
     - name: Running the build script
+      working-directory: ./client
       run: npm run build
     - name: Running ci
       run: npm ci
