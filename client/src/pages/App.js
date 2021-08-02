@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import StudentDashboard from "./authPages/StudentDashboard";
@@ -18,7 +18,7 @@ function App() {
         <userLoginCredentialsContext.Provider value={userLoginCredentials}>
           <Switch>
             {userLoginCredentials &&
-            userLoginCredentials.route == "Admin" &&
+            userLoginCredentials.route === "Admin" &&
             (userLoginCredentials.isUser === undefined ||
             userLoginCredentials.isUser === true
               ? true
@@ -28,7 +28,7 @@ function App() {
               0
             )}
             {userLoginCredentials &&
-            userLoginCredentials.route == "Teacher" &&
+            userLoginCredentials.route === "Teacher" &&
             (userLoginCredentials.isUser === undefined ||
             userLoginCredentials.isUser === true
               ? true
@@ -38,7 +38,7 @@ function App() {
               0
             )}
             {userLoginCredentials &&
-            userLoginCredentials.route == "Student" &&
+            userLoginCredentials.route === "Student" &&
             (userLoginCredentials.isUser === undefined ||
             userLoginCredentials.isUser === true
               ? true

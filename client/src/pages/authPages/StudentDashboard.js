@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   Table,
   Thead,
@@ -12,10 +12,6 @@ import { userLoginCredentialsContext } from "../App";
 
 function StudentDashboard() {
   const userLoginCredentials = useContext(userLoginCredentialsContext);
-  const userMarksInHTMLTag = [];
-  useEffect(() => {
-    console.log("hi:", userLoginCredentials);
-  }, []);
   return (
     <div className="StudentDashBoard flex__container">
       <div className="StudentDashBoard__marksDiv">
@@ -34,9 +30,9 @@ function StudentDashboard() {
             </Tr>
           </Thead>
           <Tbody>
-            {Object.entries(userLoginCredentials.body).map(
+            {Object.entries(userLoginCredentials.body).map( // eslint-disable-next-line
               ([subject, marks]) => {
-                if (subject != "id") {
+                if (subject !== "id") {
                   const pretifiedSubjects = subject.split("_");
                   return (
                     <Tr>
