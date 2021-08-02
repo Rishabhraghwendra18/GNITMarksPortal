@@ -24,4 +24,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - name: Installing Client modules
+      working-directory: ./client
+      run: npm install
+    - name: Running the build script
+      run: npm run build
+    - name: Running ci
+      run: npm ci
