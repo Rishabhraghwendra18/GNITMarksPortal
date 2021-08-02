@@ -2,11 +2,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
 } from "@chakra-ui/react";
 
 function DataShowingTable({ data }) {
@@ -22,7 +20,7 @@ function DataShowingTable({ data }) {
         </Thead>
         <Tbody>
           {data?.type.map((e, index) =>
-            data?.tableHeader.length == 3 ? (
+            data?.tableHeader.length === 3 ? (
               <Tr key={index}>
                 <Td>{e.name}</Td>
                 <Td>{e.branch}</Td>

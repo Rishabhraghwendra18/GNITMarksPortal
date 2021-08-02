@@ -57,14 +57,16 @@ function AdminDashboard() {
     }
   }
 
-  useEffect(async () => {
-    const responseJson = await fetchRecords();
-    console.log("before setting dataObject: ", tableHeader);
-    if (tableHeader[0] === "Students Name")
-      setDataObject({ tableHeader, type: responseJson.students });
-    else setDataObject({ tableHeader, type: responseJson.teachers });
-    console.log(" after updating dataObject:", dataObject);
-  }, [semester, tableHeader]);
+  useEffect(() => {
+    async function fetchData() {
+      const responseJson = await fetchRecords();
+      console.log("before setting dataObject: ", tableHeader);
+      if (tableHeader[0] === "Students Name")
+        setDataObject({ tableHeader, type: responseJson.students });
+      else setDataObject({ tableHeader, type: responseJson.teachers });
+    }
+    fetchData();
+  }, [semester, tableHeader]); 
   useEffect(() => {
     student.current.focus();
   }, []);

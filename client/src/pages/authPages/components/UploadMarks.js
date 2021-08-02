@@ -14,8 +14,6 @@ import {
   AlertDialogOverlay,
   Alert,
   AlertIcon,
-  AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import { userLoginCredentialsContext } from "../../App";
 
@@ -70,12 +68,12 @@ function UploadMarks() {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {isSuccessfulAndMessage?.status==200?'Successfully!':'Error!'}
+              {isSuccessfulAndMessage?.status===200?'Successfully!':'Error!'}
             </AlertDialogHeader>
             <AlertDialogBody>
-              <Alert status={isSuccessfulAndMessage?.status==200?'success':'error'}>
+              <Alert status={isSuccessfulAndMessage?.status===200?'success':'error'}>
                 <AlertIcon />
-                {isSuccessfulAndMessage?.status==200?'Marks Uploaded':`Error: ${isSuccessfulAndMessage?.description}`}
+                {isSuccessfulAndMessage?.status===200?'Marks Uploaded':`Error: ${isSuccessfulAndMessage?.description}`}
               </Alert>
             </AlertDialogBody>
             <AlertDialogFooter>
