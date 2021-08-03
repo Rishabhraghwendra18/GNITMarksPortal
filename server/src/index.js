@@ -33,6 +33,6 @@ app.use("/student", student);
 
 app.client = client;
 
-// app.listen(PORT,()=>console.log(`Server Listening at ${PORT}`))
+app.listen(PORT,()=>console.log(`Server Listening at ${PORT}`))
 
 module.exports = app;
