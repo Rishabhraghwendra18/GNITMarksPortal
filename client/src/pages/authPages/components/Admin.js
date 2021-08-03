@@ -21,7 +21,7 @@ function AdminDashboard() {
     "Marks",
   ]);
   const [dataObject, setDataObject] = useState();
-  const userLoginCredentials = useContext(userLoginCredentialsContext); 
+  const userLoginCredentials = useContext(userLoginCredentialsContext);
   const tabLists = [
     "sem1",
     "sem2",
@@ -32,6 +32,30 @@ function AdminDashboard() {
     "sem7",
     "sem8",
   ];
+  async function fetchRecords() {
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        id: userLoginCredentials.id,
+        password: userLoginCredentials.password,
+      }),
+    };
+    try {
+      console.log("params is: ", params);
+      const response = await fetch(
+        `http://localhost:5000/admin/dashboard?semester=${semester}`,
+        params
+      );
+      const responeJson = await response.json();
+      return Promise.resolve(responeJson);
+    } catch (error) {
+      console.log("error in admin: ", error);
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -41,32 +65,8 @@ function AdminDashboard() {
         setDataObject({ tableHeader, type: responseJson.students });
       else setDataObject({ tableHeader, type: responseJson.teachers });
     }
-    async function fetchRecords() {
-      const params = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          id: userLoginCredentials.id, 
-          password: userLoginCredentials.password, 
-        }),
-      };
-      try {
-        console.log("params is: ", params);
-        const response = await fetch(
-          `http://localhost:5000/admin/dashboard?semester=${semester}`,
-          params
-        );
-        const responeJson = await response.json();
-        return Promise.resolve(responeJson);
-      } catch (error) {
-        console.log("error in admin: ", error);
-      }
-    }
     fetchData();
-  }, [semester, tableHeader,userLoginCredentials.id,userLoginCredentials.password]); 
+  }, [semester, tableHeader]); 
   useEffect(() => {
     student.current.focus();
   }, []);
