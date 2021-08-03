@@ -43,7 +43,7 @@ function UploadMarks() {
     };
     try {
       const response = await fetch(
-        "http://localhost:5000/teacher/uploadmarks",
+        "/teacher/uploadmarks",
         params
       );
       const responeJson = await response.json();

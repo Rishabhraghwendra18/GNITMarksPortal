@@ -35,7 +35,7 @@ function Login({ setUserLoginCredentials }) {
     };
     try {
       const response = await fetch(
-        `http://localhost:5000/${route}/dashboard`,
+        `/${route}/dashboard`,
         params
       );
       const responeJson = await response.json();
