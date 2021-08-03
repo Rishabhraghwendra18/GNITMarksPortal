@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.38a6ab87.chunk.css",
+    "main.js": "/static/js/main.4bcf2093.chunk.js",
+    "main.js.map": "/static/js/main.4bcf2093.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.90bffb67.js",
+    "runtime-main.js.map": "/static/js/runtime-main.90bffb67.js.map",
+    "static/js/2.20a6c913.chunk.js": "/static/js/2.20a6c913.chunk.js",
+    "static/js/2.20a6c913.chunk.js.map": "/static/js/2.20a6c913.chunk.js.map",
+    "static/js/3.79616ade.chunk.js": "/static/js/3.79616ade.chunk.js",
+    "static/js/3.79616ade.chunk.js.map": "/static/js/3.79616ade.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.38a6ab87.chunk.css.map": "/static/css/main.38a6ab87.chunk.css.map",
+    "static/js/2.20a6c913.chunk.js.LICENSE.txt": "/static/js/2.20a6c913.chunk.js.LICENSE.txt",
+    "static/media/GNITLogo.b886bf4c.jpg": "/static/media/GNITLogo.b886bf4c.jpg",
+    "static/media/girl-studying-book.03cce87e.svg": "/static/media/girl-studying-book.03cce87e.svg",
+    "static/media/login.753498d3.svg": "/static/media/login.753498d3.svg",
+    "static/media/my-pic.a4634a09.jpg": "/static/media/my-pic.a4634a09.jpg",
+    "static/media/trophy.e4fa4e4a.svg": "/static/media/trophy.e4fa4e4a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.90bffb67.js",
+    "static/js/2.20a6c913.chunk.js",
+    "static/css/main.38a6ab87.chunk.css",
+    "static/js/main.4bcf2093.chunk.js"
+  ]
+}

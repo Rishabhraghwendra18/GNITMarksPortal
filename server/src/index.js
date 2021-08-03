@@ -1,28 +1,38 @@
-const express = require('express');
-const cors=require('cors');
-const client=require("./database/postgresqlIntialization");
-const userAuthentication =require("./middlewares/authenticationMiddlewares/userAuthentication");
-const admin=require("./routes/admin");
-const teacher=require("./routes/teacher");
-const student=require("./routes/student");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const client = require("./database/postgresqlIntialization");
+const userAuthentication = require("./middlewares/authenticationMiddlewares/userAuthentication");
+const admin = require("./routes/admin");
+const teacher = require("./routes/teacher");
+const student = require("./routes/student");
 
-// const PORT = process.env.PORT || 5000;
-const corsOption={
-      origin:"http://localhost:3000"
+const PORT = process.env.PORT || 5000;
+dotenv.config();
+const corsOption = {
+  origin: "http://localhost:3000",
 };
-const app=express();
+const app = express();
 app.use(cors(corsOption));
 app.use(express.json());
+if (process.env.NODE_ENV == "production") {
+  const path = require("path");
+  app.use(express.static(path.join(__dirname, "/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.status(200);
+  });
+}
 app.use(userAuthentication);
-app.get('/',(req,res)=>{
-      res.status(200);
-})
-app.use("/admin",admin);
-app.use("/teacher",teacher);
-app.use("/student",student);
+app.use("/admin", admin);
+app.use("/teacher", teacher);
+app.use("/student", student);
 
-app.client=client;
+app.client = client;
 
 // app.listen(PORT,()=>console.log(`Server Listening at ${PORT}`))
 
-module.exports=app;
+module.exports = app;
