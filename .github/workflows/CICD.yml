@@ -23,6 +23,3 @@ jobs:
     - name: Installing Server dependencies
       working-directory: ./server
       run: npm install
-    - name: Running tests in server folder
-      working-directory: ./server
-      run: npm run test
