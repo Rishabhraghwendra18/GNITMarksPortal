@@ -23,6 +23,17 @@ jobs:
     - name: Installing Server dependencies
       working-directory: ./server
       run: npm install
-    - name: Checking heroku
+    - name: Heroku contianer login
       working-directory: ./server
+      env:
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
       run: heroku container:login
+    - name:  Build and push to Heroku container registery
+      working-directory: ./server
+      env:
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      run: heroku container:push -a gnit-portal web
+    - name: Deploying container to Heroku
+      env:
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      run: heroku container:release -a gnit-portal web
