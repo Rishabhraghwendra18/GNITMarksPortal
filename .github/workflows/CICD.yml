@@ -14,9 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Installing Client modules
+    - name: Installing Client dependencies
       working-directory: ./client
       run: npm install
-    - name: Running the build script
+    - name: Running the build script in client folder
       working-directory: ./client
       run: npm run build
+    - name: Installing Server dependencies
+      working-directory: ./server
+      run: npm install
