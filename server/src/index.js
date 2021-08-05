@@ -34,8 +34,8 @@ app.use("/admin", admin);
 app.use("/teacher", teacher);
 app.use("/student", student);
 
-app.client = client;
+app.listen(PORT, () => {client.connect();console.log(`Server Listening at ${PORT}`)});
 
-app.listen(PORT, () => console.log(`Server Listening at ${PORT}`));
+app.client = client;
 
 module.exports = app;
