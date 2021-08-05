@@ -9,7 +9,11 @@ const student = require("./routes/student");
 
 const PORT = process.env.PORT || 5000;
 dotenv.config();
+const corsOption = {
+  origin: "http://localhost:3000",
+};
 const app = express();
+app.use(cors(corsOption));
 app.use(express.json());
 
 if (process.env.NODE_ENV == "production") {
@@ -19,10 +23,6 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.join(__dirname, "build", "index.html"));
   });
 } else {
-  const corsOption = {
-    origin: "http://localhost:3000",
-  };
-  app.use(cors(corsOption));
   app.get("/", (req, res) => {
     res.json({ msg: "Express API running in development" });
     res.status(200);
