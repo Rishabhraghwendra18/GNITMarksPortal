@@ -23,3 +23,6 @@ jobs:
     - name: Installing Server dependencies
       working-directory: ./server
       run: npm install
+    - name: Checking heroku
+      working-directory: ./server
+      run: heroku container:login
