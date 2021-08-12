@@ -1,7 +1,7 @@
 @import "./variable";
 @import "./mixins";
 .Login {
-  background-color: $yellowishColor;
+  background-color: white;
   width: 100vw;
   height: 100vh;
   flex: 1 1;
@@ -10,7 +10,7 @@
   font-size: 2rem;
   &__box {
     width: 40.0625rem;
-    border: $border;
+    border: 1px solid black;
     backdrop-filter: $blur;
     background: $background;
     border-radius: 22px;
