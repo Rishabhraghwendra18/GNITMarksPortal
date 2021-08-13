@@ -23,14 +23,14 @@ function NavBar({ isLoggedIn, setUserLoginCredentials }) {
     return (
       <>
         {/* eslint-disable-next-line */}
-        <a href="#" title="home_anchor_tag">
+        <a href="#Home" title="home_anchor_tag">
           Home
         </a>
         {/* <Link to="/studentdashboard">
         Home
       </Link> */}
         {/* eslint-disable-next-line */}
-        <a href="#" title="login_anchor_tag">
+        <a href="#Login" title="login_anchor_tag">
           Login
         </a>
         {/* eslint-disable-next-line */}
