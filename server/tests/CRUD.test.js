@@ -4,8 +4,8 @@ const sha256 = require("js-sha256").sha256;
 const db = require("../src/database/fetchUsersFromDB");
 const request = supertest(app);
 
-function getRequest(endPoint, jsonBody = null) {
-  return request.get(endPoint).send(jsonBody);
+function getRequest(endPoint) {
+  return request.get(endPoint);
 }
 function postRequest(endPoint, jsonBody) {
   return request.post(endPoint).send(jsonBody);
@@ -45,9 +45,8 @@ describe("1st test", () => {
     );
   });
   it("GET / . Status code must be 203", async () => {
-    const body = { id: 3, password: "jksjafdklsa" };
-    const res = await getRequest("/", body);
-    expect(res.status).toBe(203);
+    const res = await getRequest("/");
+    expect(res.status).toBe(200);
   });
   it("Not a Admin", async () => {
     const res = await getRequest("/admin?id=1&?id=1");
