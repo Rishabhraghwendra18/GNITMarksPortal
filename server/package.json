@@ -4,8 +4,8 @@
   "description": "Backend of GNIT marks portal",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index",
-    "dev": "nodemon ./src/developmentServer/server.js",
+    "start": "node src/server/prodServer.js",
+    "dev": "nodemon ./src/server/devServer.js",
     "test": "./node_modules/.bin/jest --watchAll --setupFiles dotenv/config --detectOpenHandles --testTimeout=10000"
   },
   "author": "Rishabh Raghwendra",

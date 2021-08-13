@@ -7,7 +7,6 @@ const admin = require("./routes/admin");
 const teacher = require("./routes/teacher");
 const student = require("./routes/student");
 
-const PORT = process.env.PORT || 5000;
 dotenv.config();
 const corsOption = {
   origin: "http://localhost:3000",
@@ -33,8 +32,6 @@ app.use(userAuthentication);
 app.use("/admin", admin);
 app.use("/teacher", teacher);
 app.use("/student", student);
-
-app.listen(PORT, () => {client.connect();console.log(`Server Listening at ${PORT}`)});
 
 app.client = client;
 
