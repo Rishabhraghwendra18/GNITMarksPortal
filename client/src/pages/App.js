@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
         <userLoginCredentialsContext.Provider value={userLoginCredentials}>
+        <NavBar isLoggedIn={userLoginCredentials && (userLoginCredentials?.isUser === undefined || userLoginCredentials?.isUser)} setUserLoginCredentials={setUserLoginCredentials}/>
           <Switch>
             {userLoginCredentials &&
             userLoginCredentials.route === "Admin" &&
