@@ -2,7 +2,7 @@
 
 
 # 📌 Introduction
-This project is a Student portal , I made it using PERN Stack (PostgreSQL,Express,Reactjs,Node.js), for my college . It has the following features:
+This project is a Student portal , I made it using PERN Stack (PostgreSQL,Express,Reactjs,Node.js), for my college because my college doesn't have any such portal for students so I thought of gifting one to my college. It has the following features:
 
 - Students can login with their username & password to check their marks in last semester.
 - Teachers can upload the marks of the students in their respective subject by logging into portal using their username & password.
