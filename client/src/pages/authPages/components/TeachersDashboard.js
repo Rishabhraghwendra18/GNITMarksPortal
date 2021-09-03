@@ -12,7 +12,7 @@ function TeachersDashboard() {
       </Link>
       <div className="dashboard">
         <div className="teacherInformation">
-          <p>{userLoginCredentials.body.id}</p>
+          <p>ID: {userLoginCredentials.id}</p>
         </div>
         <div className="teachersStudentMarks">
           <Table variant="simple" colorScheme="black" size="lg">
