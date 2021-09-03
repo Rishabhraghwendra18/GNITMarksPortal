@@ -92,6 +92,7 @@ function Login({ setUserLoginCredentials }) {
                 console.log("user name is: ", userName);
                 console.log("user password is: ", userPassword);
                 console.log("can't login");
+                alert("Please fill all the details login");
                 return;
               }
               queryLogin({
