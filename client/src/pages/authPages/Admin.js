@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route} from "react-router-dom";
 import AccountSignUp from "./AccountSignUp";
-import AdminDashboard from "./components/Admin";
+import AdminDashboard from "./components/AdminDashboard";
 
 function Admin() {
   return (

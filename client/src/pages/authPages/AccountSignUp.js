@@ -61,6 +61,7 @@ function AccountSignUp() {
       const responeJson = await response.json();
       console.log("response on creating account: ", responeJson);
     } catch (error) {
+      alert("Something went wrong");
       console.log("error in creating account: ", error);
     }
   }
@@ -113,7 +114,7 @@ function AccountSignUp() {
               boxSizing="border-box"
               onChange={(e) => {
                 setSemesterIndex(e.target.value);
-                setUserSemester(semestersAndSubjects[e.target.value].semester);
+                setUserSemester(semestersAndSubjects[e.target.value]?.semester);
               }}
             >
               {semestersAndSubjects.map((e, index) => (
