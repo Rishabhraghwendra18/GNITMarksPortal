@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import Hero from "../pages/landingPage/components/Hero";
 import Login from "../pages/landingPage/components/Login";
 import MyProfile from "../pages/landingPage/components/MyProfile";
-import Toppers from "../pages/landingPage/components/Toppers";
 import NavBar from "../pages/landingPage/components/NavBar";
 
 describe("are Landing page components rendering", () => {
@@ -21,11 +20,6 @@ describe("are Landing page components rendering", () => {
   it("is Hero section rendering", () => {
     const { queryByTitle } = render(<Home />);
     const hero = queryByTitle("Hero");
-    expect(hero).toBeTruthy();
-  });
-  it("is Toppers section rendering", () => {
-    const { queryByTitle } = render(<Home />);
-    const hero = queryByTitle("Toppers");
     expect(hero).toBeTruthy();
   });
   it("is Login section rendering", () => {
@@ -67,13 +61,6 @@ describe("are elements in each component rendering", () => {
     expect(myPic).toBeTruthy();
     expect(myName).toBeTruthy();
     expect(title).toBeTruthy();
-  });
-  it("is Topper rendering toppers list & img", () => {
-    const { queryByTitle } = render(<Toppers />);
-    const toppersImage = queryByTitle("Toppers__image");
-    const toppersList = queryByTitle("toppers_list");
-    expect(toppersImage).toBeTruthy();
-    expect(toppersList).toBeTruthy();
   });
   it("is NavBar rendering links & logo", () => {
     const { queryByTitle } = render(<NavBar />);
