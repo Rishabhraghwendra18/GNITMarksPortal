@@ -133,7 +133,7 @@ function getTeacherSubject(teacherId) {
   return new Promise((resolve, reject) => {
     const query = `SELECT teachers.subject FROM teachers WHERE id='${teacherId}';`;
     client.query(query, (postgressError, postgresResponse) => {
-      const STUDENT_DATA_AT_INDEX = 0;
+      const Teacher_DATA_AT_INDEX = 0;
       if (postgressError) {
         reject({
           error: true,
@@ -147,7 +147,7 @@ function getTeacherSubject(teacherId) {
           status: 500,
           description: `No teacher id with ${teacherId} found`,
         });
-      resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+      resolve(postgresResponse.rows[Teacher_DATA_AT_INDEX]);
     });
   });
 }
