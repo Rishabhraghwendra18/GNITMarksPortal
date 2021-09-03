@@ -73,7 +73,7 @@ describe("1st test", () => {
         name: "xyz",
         branch: "CSE",
         role: "student",
-        password: "IPUSTUD",
+        password: "XYZ@1",
         sem1: true,
       },
       {
@@ -81,7 +81,7 @@ describe("1st test", () => {
         name: "Prem Chand",
         branch: "ME",
         role: "student",
-        password: "PremSTUD",
+        password: "Prem@1",
         sem6: true,
       },
       {
@@ -226,7 +226,7 @@ describe("1st test", () => {
   it("Get a particular student data. GET /student/dashboard",async()=>{
     const studentLoginCredentials={
       id: "IPUTEST778",
-      password: "IPUSTUD",
+      password: "XYZ@1",
     };
     const res = await postRequest("/student/dashboard", studentLoginCredentials);
     const dbData = await db.getStudent({semester:"sem1",id:"IPUTEST778"});
