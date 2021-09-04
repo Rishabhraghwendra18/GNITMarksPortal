@@ -119,7 +119,7 @@ function getStudentSemesterNumber(id) {
           description: postgressError.detail,
         });
       }
-      if (!Object.keys(postgresResponse.rows).length)
+      if (!postgresResponse.rows.length)
         reject({
           error: true,
           status: 500,
@@ -141,7 +141,7 @@ function getTeacherSubject(teacherId) {
           description: postgressError.detail,
         });
       }
-      if (!Object.keys(postgresResponse.rows).length)
+      if (!postgresResponse.rows.length)
         reject({
           error: true,
           status: 500,
