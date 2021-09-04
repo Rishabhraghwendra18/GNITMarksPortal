@@ -9,10 +9,11 @@ function addUser(user) {
     ];
     const branchOrSubject = user.branch ? "branch" : "subject";
     const arrayOfKeysFromObject = Object.entries(user);
+    const SEMESTER_NUMBER_AT_INDEX_Array = 0;
     const SEMESTER_NUMBER_AT_INDEX = 0;
-    const semesterNumber = arrayOfKeysFromObject
-      .filter(([semester, value]) => value === true)
-      .flat()[SEMESTER_NUMBER_AT_INDEX];
+    const semesterNumber = arrayOfKeysFromObject.filter(
+      ([semester, value]) => value === true
+    )[SEMESTER_NUMBER_AT_INDEX_Array][SEMESTER_NUMBER_AT_INDEX];
     query.push(
       `INSERT INTO ${user.role}s(id,name,${branchOrSubject}) VALUES('${user.id}','${user.name}','${user[branchOrSubject]}');`
     );
