@@ -9,10 +9,11 @@ function addUser(user) {
     ];
     const branchOrSubject = user.branch ? "branch" : "subject";
     const arrayOfKeysFromObject = Object.entries(user);
+    const SEMESTER_NUMBER_AT_INDEX_Array = 0;
     const SEMESTER_NUMBER_AT_INDEX = 0;
-    const semesterNumber = arrayOfKeysFromObject
-      .filter(([semester, value]) => value === true)
-      .flat()[SEMESTER_NUMBER_AT_INDEX];
+    const semesterNumber = arrayOfKeysFromObject.filter(
+      ([semester, value]) => value === true
+    )[SEMESTER_NUMBER_AT_INDEX_Array][SEMESTER_NUMBER_AT_INDEX];
     query.push(
       `INSERT INTO ${user.role}s(id,name,${branchOrSubject}) VALUES('${user.id}','${user.name}','${user[branchOrSubject]}');`
     );
@@ -119,7 +120,7 @@ function getStudentSemesterNumber(id) {
           description: postgressError.detail,
         });
       }
-      if (!Object.keys(postgresResponse.rows).length)
+      if (!postgresResponse.rows.length)
         reject({
           error: true,
           status: 500,
@@ -133,7 +134,7 @@ function getTeacherSubject(teacherId) {
   return new Promise((resolve, reject) => {
     const query = `SELECT teachers.subject FROM teachers WHERE id='${teacherId}';`;
     client.query(query, (postgressError, postgresResponse) => {
-      const STUDENT_DATA_AT_INDEX = 0;
+      const Teacher_DATA_AT_INDEX = 0;
       if (postgressError) {
         reject({
           error: true,
@@ -141,13 +142,13 @@ function getTeacherSubject(teacherId) {
           description: postgressError.detail,
         });
       }
-      if (!Object.keys(postgresResponse.rows).length)
+      if (!postgresResponse.rows.length)
         reject({
           error: true,
           status: 500,
           description: `No teacher id with ${teacherId} found`,
         });
-      resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+      resolve(postgresResponse.rows[Teacher_DATA_AT_INDEX]);
     });
   });
 }

@@ -3,7 +3,7 @@ import {BrowserRouter,Switch, Route} from 'react-router-dom';
 import TeachersDashboard from "./components/TeachersDashboard";
 import UploadMarks from "./components/UploadMarks";
 
-function Teachers({match}) {
+function Teachers() {
       return (
             <BrowserRouter>
             <Switch>
