@@ -13,37 +13,40 @@ function postRequest(endPoint, jsonBody) {
 function putRequest(endPoint,jsonBody){
   return request.put(endPoint).send(jsonBody);
 }
-describe("1st test", () => {
-  const adminLoginCredentials = {};
-  beforeAll(() => {
-    app.client.connect();
-    adminLoginCredentials.id = process.env.ADMIN_ID;
-    adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
-    const tables = [
-      "users",
-      "semester_lists",
-      "students",
-      "teachers",
-      "sem1",
-      "sem2",
-      "sem3",
-      "sem4",
-      "sem5",
-      "sem6",
-      "sem7",
-      "sem8",
-    ];
-    tables.map((e) => {
-      app.client.query(`TRUNCATE TABLE ${e};`, (error) =>
-        expect(error).toBe(null)
-      );
-    });
-    app.client.query(
-      `INSERT INTO users(ID,role,password)VALUES('${
-        adminLoginCredentials.id
-      }','ADMIN','${sha256(adminLoginCredentials.password)}');`
+function setUpDatabase(adminLoginCredentials) {
+ return function(){
+  app.client.connect();
+  adminLoginCredentials.id = process.env.ADMIN_ID;
+  adminLoginCredentials.password = process.env.ADMIN_PASSWORD;
+  const tables = [
+    "users",
+    "semester_lists",
+    "students",
+    "teachers",
+    "sem1",
+    "sem2",
+    "sem3",
+    "sem4",
+    "sem5",
+    "sem6",
+    "sem7",
+    "sem8",
+  ];
+  tables.map((e) => {
+    app.client.query(`TRUNCATE TABLE ${e};`, (error) =>
+      expect(error).toBe(null)
     );
   });
+  app.client.query(
+    `INSERT INTO users(ID,role,password)VALUES('${
+      adminLoginCredentials.id
+    }','ADMIN','${sha256(adminLoginCredentials.password)}');`
+  );
+ }
+}
+describe("1st test", () => {
+  const adminLoginCredentials = {};
+  beforeAll(setUpDatabase(adminLoginCredentials));
   it("GET / . Status code must be 203", async () => {
     const res = await getRequest("/");
     expect(res.status).toBe(200);
@@ -232,4 +235,24 @@ describe("1st test", () => {
     const dbData = await db.getStudent({semester:"sem1",id:"IPUTEST778"});
     expect(res.body).toMatchObject(dbData);
   });
+  it("Promote a student to next semester. POST /admin/promotestudent",async()=>{
+    const studentDetails={
+      id:"IPUTEST778",
+      name:"xyz"
+    }
+    adminLoginCredentials.user=studentDetails;
+    const res = await postRequest("/admin/promotestudent",adminLoginCredentials);
+    const dbData = await db.getStudent({semester:"sem2",id:"IPUTEST778"});
+    expect(res.body).toMatchObject({ error: false });
+    expect(dbData).toMatchObject({
+      id: 'IPUTEST778',
+      applied_mathematics: null,
+      applied_physics: null,
+      electronic_devices: null,
+      introduction_to_programming: null,
+      engineering_mechanics: null,
+      communication_skills: null,
+      environmental_studies: null
+    })
+  })
 });

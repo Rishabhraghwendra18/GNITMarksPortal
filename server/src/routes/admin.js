@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authRole = require("../middlewares/permissonMiddlewares/authRole");
-const { addUser,selectAllUsers } = require("../database/fetchUsersFromDB");
+const { addUser,selectAllUsers,promoteStudentToNextSemester } = require("../database/fetchUsersFromDB");
 
 router.post("/dashboard", authRole("ADMIN"), (req, res) => {
   if(!req.query){
@@ -34,5 +34,13 @@ router.post("/adduser", authRole("ADMIN"), (req, res) => {
       });
     });
 });
+router.post("/promotestudent",authRole("ADMIN"),(req,res)=>{
+  promoteStudentToNextSemester(req.body.user)
+  .then(()=>res.json({error:false}))
+  .catch(e=>{
+    res.status(e.status);
+    res.json(e);
+  })
+})
 
 module.exports = router;

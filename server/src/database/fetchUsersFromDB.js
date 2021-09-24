@@ -171,10 +171,45 @@ function getStudent({ semester, id }) {
   });
 }
 
+async function promoteStudentToNextSemester({id,name}) {
+  const {semester:currentSemester} = await getStudentSemesterNumber(id);
+  const nextSemesterNumber = parseInt(currentSemester[currentSemester.length-1])+1;
+  const newSemester = `sem${nextSemesterNumber}`;
+  const resp = await addStudentToNewSemester(id,newSemester);
+  await deleteAStudentRecordFromOldSemester(id,currentSemester);
+  
+}
+function addStudentToNewSemester(id,semesterNumber) {
+  return new Promise((resolve,reject)=>{
+    const query = `INSERT INTO ${semesterNumber}(id) VALUES('${id}');`;
+    client.query(query,(postgressError, postgresResponse)=>{
+      if(postgressError) reject({
+        error: true,
+        status: 500,
+        description: postgressError.detail,
+      });
+      resolve(postgresResponse.rows);
+    })
+  })
+}
+function deleteAStudentRecordFromOldSemester(id,currentSemester) {
+  return new Promise((resolve,reject)=>{
+    const query = `DELETE FROM ${currentSemester} WHERE id='${id}'`;
+    client.query(query,(postgressError, postgresResponse)=>{
+      if(postgressError) reject({
+        error: true,
+        status: 500,
+        description: postgressError.detail,
+      });
+      resolve(null);
+    })
+  })
+}
 module.exports = {
   uploadStudentMarks,
   getStudent,
   selectAllStudents,
   selectAllUsers,
   addUser,
+  promoteStudentToNextSemester,
 };
