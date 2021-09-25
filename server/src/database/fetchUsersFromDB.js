@@ -90,19 +90,23 @@ async function uploadStudentMarks(teacherId, id, marks) {
   try {
     const { semester } = await getStudentSemesterNumber(id);
     const { subject } = await getTeacherSubject(teacherId);
-    const query = `UPDATE ${semester} SET ${subject}='${marks}' WHERE id='${id}'; `;
+    let {total:totalMarks } = await getTotalMarks(id,semester);
+    totalMarks+=marks;
+    const query = [`UPDATE ${semester} SET ${subject}='${marks}' WHERE id='${id}'; `,`UPDATE ${semester} SET total='${totalMarks}' WHERE id='${id}'`];
     return new Promise((resolve, reject) => {
-      client.query(query, (postgressError, postgresResponse) => {
-        const STUDENT_DATA_AT_INDEX = 0;
-        if (postgressError) {
-          reject({
-            error: true,
-            status: 500,
-            description: postgressError.detail,
-          });
-        }
-        resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
-      });
+      query.map(e=>{
+        client.query(e, (postgressError, postgresResponse) => {
+          const STUDENT_DATA_AT_INDEX = 0;
+          if (postgressError) {
+            reject({
+              error: true,
+              status: 500,
+              description: postgressError.detail,
+            });
+          }
+          resolve(postgresResponse.rows[STUDENT_DATA_AT_INDEX]);
+        });
+      })
     });
   } catch (error) {
     throw error;
@@ -151,6 +155,22 @@ function getTeacherSubject(teacherId) {
       resolve(postgresResponse.rows[Teacher_DATA_AT_INDEX]);
     });
   });
+}
+function getTotalMarks(id,semester) {
+  const query=`select ${semester}.total from ${semester} where id='${id}'`;
+  return new Promise((resolve,reject)=>{
+    client.query(query,(postgressError,postgresResponse)=>{
+      const DATA_AT_FIRST_INDEX=0;
+      if (postgressError) {
+        reject({
+          error: true,
+          status: 500,
+          description: postgressError.detail,
+        });
+      }
+      resolve(postgresResponse.rows[DATA_AT_FIRST_INDEX])
+    })
+  })
 }
 
 function getStudent({ semester, id }) {

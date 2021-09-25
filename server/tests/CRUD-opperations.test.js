@@ -209,6 +209,10 @@ describe("1st test", () => {
     const response={status:200};
     expect(res.body).toMatchObject(response);
   });
+  it("checking total marks of student",async()=>{
+    const res = await db.getStudent({semester:"sem1",id:"IPUTEST778"});
+    expect(res).toMatchObject({total:'80'});
+  });
   it("Giving wrong student ID.PUT /teacher/uploadmarks",async()=>{
     const teacherLoginCredentials={
       id: "IPUTEST779",
@@ -255,4 +259,5 @@ describe("1st test", () => {
       environmental_studies: null
     })
   })
+ 
 });
