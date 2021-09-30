@@ -1,8 +1,6 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
-  Select,
-  Checkbox,
   Input,
   FormControl,
   FormLabel,
