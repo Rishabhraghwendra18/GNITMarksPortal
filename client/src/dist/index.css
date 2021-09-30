@@ -401,11 +401,6 @@ nav div {
   background-color: #FFEB94;
 }
 
-.AdminDashboard a {
-  margin: 3rem;
-  margin-left: auto;
-}
-
 .AdminDashboard .uploadButton {
   width: 13rem;
   font-size: 1.5rem;
@@ -434,6 +429,22 @@ nav div {
 .AdminDashboard .dashboard .teacher__student {
   padding: 3rem;
   border-right: 1px solid black;
+}
+
+.AdminDashboard .promote_and_create_student_account_button {
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  padding-top: 1rem;
+}
+
+.AdminDashboard .promote_and_create_student_account_button a {
+  margin-right: 1rem;
 }
 
 .AccountSignUp {

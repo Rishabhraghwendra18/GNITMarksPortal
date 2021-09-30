@@ -72,9 +72,22 @@ function AdminDashboard() {
   }, []);
   return (
     <div className="AdminDashboard flex__container">
+     <div className="promote_and_create_student_account_button">
+     <Link to="/accountsignup">
+        <button className="uploadButton">Create Account</button>
+      </Link>
+     <Link to="/promotestudent">
+        <button className="uploadButton">Promote Student</button>
+      </Link>
+     </div>
+      {/* <Stack direction="row">
+      <Link to="/promotestudent">
+        <button className="uploadButton">Promote Student</button>
+      </Link>
       <Link to="/accountsignup">
         <button className="uploadButton">Create Account</button>
       </Link>
+        </Stack> */}
       <div className="dashboard">
         <div className="teacher__student">
           <Stack spacing={4} direction="column" align="center">
