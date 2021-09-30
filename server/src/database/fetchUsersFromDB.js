@@ -195,7 +195,8 @@ async function promoteStudentToNextSemester({id,name}) {
   const {semester:currentSemester} = await getStudentSemesterNumber(id);
   const nextSemesterNumber = parseInt(currentSemester[currentSemester.length-1])+1;
   const newSemester = `sem${nextSemesterNumber}`;
-  const resp = await addStudentToNewSemester(id,newSemester);
+  await addStudentToNewSemester(id,newSemester);
+  await updateSemesterListTable(id,newSemester)
   await deleteAStudentRecordFromOldSemester(id,currentSemester);
   
 }
@@ -209,6 +210,19 @@ function addStudentToNewSemester(id,semesterNumber) {
         description: postgressError.detail,
       });
       resolve(postgresResponse.rows);
+    })
+  })
+}
+function updateSemesterListTable(id,semesterNumber) {
+  return new Promise((resolve,reject)=>{
+    const query = `UPDATE semester_lists SET semester='${semesterNumber}' WHERE id='${id}'`;
+    client.query(query,(postgressError, postgresResponse)=>{
+      if(postgressError) reject({
+        error: true,
+        status: 500,
+        description: postgressError.detail,
+      });
+      resolve(null);
     })
   })
 }
