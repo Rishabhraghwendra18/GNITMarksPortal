@@ -60,6 +60,7 @@ function AdminDashboard() {
           params
         );
         const responeJson = await response.json();
+        console.log("response: ",responeJson);
         return Promise.resolve(responeJson);
       } catch (error) {
         console.log("error in admin: ", error);
@@ -80,14 +81,6 @@ function AdminDashboard() {
         <button className="uploadButton">Promote Student</button>
       </Link>
      </div>
-      {/* <Stack direction="row">
-      <Link to="/promotestudent">
-        <button className="uploadButton">Promote Student</button>
-      </Link>
-      <Link to="/accountsignup">
-        <button className="uploadButton">Create Account</button>
-      </Link>
-        </Stack> */}
       <div className="dashboard">
         <div className="teacher__student">
           <Stack spacing={4} direction="column" align="center">

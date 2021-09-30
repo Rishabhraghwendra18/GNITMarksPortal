@@ -39,29 +39,31 @@ function PromoteStudent() {
     }
   }
   return (
-    <div>
-      <HStack spacing="45px" marginBottom="1rem">
-        <FormLabel fontSize="1.5rem" boxSizing="border-box">
-          ID
-        </FormLabel>
-        <Input
-          type="text"
-          border="6px solid black"
-          boxSizing="border-box"
-          value={userID}
-          onChange={(e) => setUserId(e.target.value)}
-        ></Input>
-      </HStack>
-      <HStack spacing="24px" marginBottom="1rem">
-        <FormLabel fontSize="1.5rem">Name</FormLabel>
-        <Input
-          type="text"
-          border="6px solid black"
-          boxSizing="border-box"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        ></Input>
-      </HStack>
+    <div className="PromoteStudent">
+     <FormControl width="30%">
+          <HStack spacing="45px" marginBottom="1rem">
+            <FormLabel fontSize="1.5rem" boxSizing="border-box">
+              ID
+            </FormLabel>
+            <Input
+              type="text"
+              border="6px solid black"
+              boxSizing="border-box"
+              value={userID}
+              onChange={(e) => setUserId(e.target.value)}
+            ></Input>
+          </HStack>
+          <HStack spacing="24px" marginBottom="1rem">
+            <FormLabel fontSize="1.5rem">Name</FormLabel>
+            <Input
+              type="text"
+              border="6px solid black"
+              boxSizing="border-box"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            ></Input>
+          </HStack>
+        </FormControl>
       <Stack spacing="23px" marginBottom="1rem" direction="row">
         <Button
           loadingText="Submitting"
