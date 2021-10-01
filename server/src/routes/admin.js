@@ -7,6 +7,7 @@ router.post("/dashboard", authRole("ADMIN"), (req, res) => {
   if(!Object.keys(req.query).length && req.query.constructor===Object){
     res.status(400);
     res.json({error:"Missing query parameter"});
+    return;
   }
   const semester=req.query.semester;
   selectAllUsers(semester)
