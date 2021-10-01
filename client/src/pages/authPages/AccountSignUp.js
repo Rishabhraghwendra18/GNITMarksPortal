@@ -60,8 +60,9 @@ function AccountSignUp() {
       );
       const responeJson = await response.json();
       console.log("response on creating account: ", responeJson);
+      alert("Account created successfully");
     } catch (error) {
-      alert("Something went wrong");
+      alert("Something went wrong. Please check all user details");
       console.log("error in creating account: ", error);
     }
   }

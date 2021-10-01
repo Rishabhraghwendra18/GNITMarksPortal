@@ -64,6 +64,7 @@ function AdminDashboard() {
         return Promise.resolve(responeJson);
       } catch (error) {
         console.log("error in admin: ", error);
+        alert("something went wrong while sending request to server")
       }
     }
     fetchData();

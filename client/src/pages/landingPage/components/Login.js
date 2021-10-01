@@ -47,6 +47,7 @@ function Login({ setUserLoginCredentials }) {
       });
       console.log("response is: ", responeJson);
     } catch (error) {
+      alert("Wrong credentials . Please check it again")
       routing.push("/");
     }
   }

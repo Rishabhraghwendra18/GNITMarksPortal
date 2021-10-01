@@ -32,8 +32,10 @@ function PromoteStudent() {
       const response = await fetch("/admin/promotestudent", params);
       const responeJson = await response.json();
       console.log("response on promoting: ", responeJson);
+      alert("promoted successfully")
     } catch (error) {
           console.log("error in promoting: ",error);
+          alert("something went wrong. Please check student details")
     }
   }
   return (
