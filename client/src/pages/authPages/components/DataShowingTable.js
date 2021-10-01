@@ -24,7 +24,7 @@ function DataShowingTable({ data }) {
               <Tr key={index}>
                 <Td>{e.name}</Td>
                 <Td>{e.branch}</Td>
-                <Td>{e.marks}</Td>
+                <Td>{e.total}</Td>
               </Tr>
             ) : (
               <Tr>

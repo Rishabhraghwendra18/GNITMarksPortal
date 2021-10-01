@@ -4,7 +4,7 @@ const authRole = require("../middlewares/permissonMiddlewares/authRole");
 const { addUser,selectAllUsers,promoteStudentToNextSemester } = require("../database/fetchUsersFromDB");
 
 router.post("/dashboard", authRole("ADMIN"), (req, res) => {
-  if(!req.query){
+  if(!Object.keys(req.query).length && req.query.constructor===Object){
     res.status(400);
     res.json({error:"Missing query parameter"});
   }

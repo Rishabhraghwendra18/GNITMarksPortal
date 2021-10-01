@@ -65,9 +65,12 @@ describe("1st test", () => {
     );
     expect(res.statusCode).toBe(200);
   });
-  it("GET admin/Dashboard . Before any user in db ", async () => {
-    const res = await postRequest("/admin/dashboard", adminLoginCredentials);
-    expect(res.body).toEqual({ students: [], teachers: [] });
+  it("GET admin/Dashboard . Before any user in db ",() => {
+    const semesters=['sem1','sem2','sem3','sem4','sem5','sem6','sem7','sem8'];
+    semesters.map(async e=>{
+      const res = await postRequest(`/admin/dashboard?semester=${e}`, adminLoginCredentials);
+      expect(res.body).toEqual({ students: [], teachers: [] });
+    })
   });
   it("POST admin/adduser . Add students", () => {
     const students = [

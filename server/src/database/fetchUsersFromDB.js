@@ -43,9 +43,9 @@ function addUser(user) {
 function selectAllUsers(semester) {
   return new Promise((resolve, reject) => {
     const usersData = {};
-    selectAllStudents(semester)
+    selectAllStudentsForAdmin(semester)
       .then((e) => (usersData.students = e))
-      .catch((e) => reject("Error in selectAllStudents()", e));
+      .catch((e) => reject(e));
     selectAllTeachers(semester)
       .then((e) => {
         usersData.teachers = e;
@@ -54,6 +54,23 @@ function selectAllUsers(semester) {
       .catch((e) => reject("Error in selectAllTeachers()", e));
   });
 }
+function selectAllStudentsForAdmin(semester) {
+  return new Promise((resolve, reject) => {
+    const query=`SELECT students.id,students.name,students.branch,${semester}.total FROM students JOIN ${semester} ON students.id=${semester}.id;`;
+    client.query(query, (postgressError, postgresResponse) => {
+      if (postgressError) {
+        reject({
+          error: true,
+          status: 500,
+          description: postgressError.detail,
+        });
+        return;
+      }
+      resolve(postgresResponse.rows);
+    });
+  });
+}
+
 function selectAllStudents(semester) {
   return new Promise((resolve, reject) => {
     const query = `SELECT students.id,students.name,students.branch FROM students JOIN semester_lists ON students.id=semester_lists.id WHERE semester_lists.semester='${semester}';`;
@@ -91,7 +108,10 @@ async function uploadStudentMarks(teacherId, id, marks) {
     const { semester } = await getStudentSemesterNumber(id);
     const { subject } = await getTeacherSubject(teacherId);
     let {total:totalMarks } = await getTotalMarks(id,semester);
-    totalMarks+=marks;
+    if(totalMarks=='null' || totalMarks=='NaN')
+      totalMarks=parseInt(marks);
+    else
+      totalMarks=parseInt(totalMarks)+parseInt(marks);
     const query = [`UPDATE ${semester} SET ${subject}='${marks}' WHERE id='${id}'; `,`UPDATE ${semester} SET total='${totalMarks}' WHERE id='${id}'`];
     return new Promise((resolve, reject) => {
       query.map(e=>{
